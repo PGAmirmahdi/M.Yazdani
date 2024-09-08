@@ -64,7 +64,7 @@
                 </li>
             @endcan
             @can('resume')
-            <li class="{{ active_sidebar(['resume','resume/{resume}/edit','resume/create','resume/index','favorites','favorites/create','favorites/{favorite}/edit']) ? 'active' : '' }}" data-toggle="tooltip" title="مشخصات">
+            <li class="{{ active_sidebar(['resume','resume/{resume}/edit','resume/create','resume/index','favorites','favorites/create','favorites/{favorite}/edit','JobHistory','JobHistory/create','JobHistory/{JobHistory}/edit']) ? 'active' : '' }}" data-toggle="tooltip" title="مشخصات">
                 <a href="#navigationInfo" title="مشخصات">
                     <i class="icon ti-new-window"></i>
                 </a>
@@ -315,7 +315,7 @@
             @endcan
         </ul>
 
-        <ul id="navigationInfo" class="{{ active_sidebar(['resume','resume/{resume}/edit','resume/create','resume/index','favorites','favorites/create','favorites/{favorite}/edit']) ? 'navigation-active' : '' }}">
+        <ul id="navigationInfo" class="{{ active_sidebar(['resume','resume/{resume}/edit','resume/create','resume/index','favorites','favorites/create','favorites/{favorite}/edit','JobHistory','JobHistory/create','JobHistory/{JobHistory}/edit']) ? 'navigation-active' : '' }}">
             <li class="navigation-divider">مشخصات</li>
             @can('resume')
                 <li>
@@ -325,6 +325,11 @@
             @can('favorites-list')
                 <li>
                     <a class="{{ active_sidebar(['favorites','favorites/create','favorites/{favorite}/edit']) ? 'active' : '' }}" href="{{ route('favorites.index') }}">علاقه  مندی</a>
+                </li>
+            @endcan
+            @can('list-JobHistory')
+                <li>
+                    <a class="{{ active_sidebar(['JobHistory','JobHistory/create','JobHistory/{JobHistory}/edit']) ? 'active' : '' }}" href="{{ route('JobHistory.index') }}">تجربه های کاری</a>
                 </li>
             @endcan
         </ul>

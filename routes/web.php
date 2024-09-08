@@ -19,6 +19,7 @@ use App\Http\Controllers\Panel\InputController;
 use App\Http\Controllers\Panel\InventoryController;
 use App\Http\Controllers\Panel\InventoryReportController;
 use App\Http\Controllers\Panel\InvoiceController;
+use App\Http\Controllers\Panel\JobHistoryController;
 use App\Http\Controllers\Panel\LeaveController;
 use App\Http\Controllers\Panel\NoteController;
 use App\Http\Controllers\Panel\OffSiteProductController;
@@ -306,6 +307,9 @@ Route::middleware('auth')->prefix('/panel')->group(function () {
     //  Favorite
     Route::resource('favorites', FavoriteController::class);
     Route::get('favorites/file/{filename}', [FavoriteController::class, 'showFile'])->name('favorites.file.show');
+
+    // Job History
+    Route::resource('JobHistory', JobHistoryController::class);
 
 });
 Route::get('/user-visits', function() {
