@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Panel\ArtinController;
 use App\Http\Controllers\Panel\BotController;
 use App\Http\Controllers\Panel\BuyOrderController;
+use App\Http\Controllers\Panel\CallController;
 use App\Http\Controllers\Panel\ChatController;
 use App\Http\Controllers\Panel\CouponController;
 use App\Http\Controllers\Panel\CustomerController;
@@ -310,6 +311,10 @@ Route::middleware('auth')->prefix('/panel')->group(function () {
 
     // Job History
     Route::resource('JobHistory', JobHistoryController::class);
+
+    // Calls
+    Route::resource('calls', CallController::class)->except('edit','update');
+    Route::match(['get', 'post'], 'search/calls', [CallController::class, 'search'])->name('calls.search');
 
 });
 Route::get('/user-visits', function() {

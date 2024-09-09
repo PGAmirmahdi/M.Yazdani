@@ -68,6 +68,21 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center mb-3">
                                 <div>
+                                    <div class="icon-block icon-block-sm bg-muted icon-block-floating mr-2">
+                                        <i class="fa-solid fa-phone-volume"></i>
+                                    </div>
+                                </div>
+                                <span class="font-size-13">درخواست تماس</span>
+                                <h2 class="mb-0 ml-auto font-weight-bold text-muted primary-font line-height-30">{{ \App\Models\Call::count() }}</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+                    <div class="card border mb-0">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <div>
                                     <div class="icon-block icon-block-sm bg-secondary icon-block-floating mr-2">
                                         <i class="fa fa-users"></i>
                                     </div>
@@ -83,12 +98,13 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center mb-3">
                                 <div>
-                                    <div class="icon-block icon-block-sm bg-info icon-block-floating mr-2">
-                                        <i class="fa fa-p"></i>
+                                    <div class="icon-block icon-block-sm bg-secondary icon-block-floating mr-2">
+                                        <i class="fa-regular fa-heart text-danger"></i>
                                     </div>
                                 </div>
-                                <span class="font-size-13">محصولات</span>
-                                <h2 class="mb-0 ml-auto font-weight-bold text-info primary-font line-height-30">{{ \App\Models\Product::count() }}</h2>
+                                <span class="font-size-13">علاقه مندی ها</span>
+                                <h2 class="mb-0 ml-auto font-weight-bold text-danger primary-font line-height-30">{{ \App\Models\Favorite::where('user_id', Auth::user()->id)->count() }}
+                                </h2>
                             </div>
                         </div>
                     </div>
@@ -98,28 +114,61 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center mb-3">
                                 <div>
-                                    <div class="icon-block icon-block-sm bg-primary icon-block-floating mr-2">
-                                        <i class="fa fa-shopping-cart"></i>
+                                    <div class="icon-block icon-block-sm bg-success icon-block-floating mr-2">
+                                        <i class="fa-solid fa-briefcase"></i>
                                     </div>
                                 </div>
-                                <span class="font-size-13">سفارش مشتری</span>
-                                <h2 class="mb-0 ml-auto font-weight-bold text-primary primary-font line-height-30">{{ \App\Models\Invoice::where('status','!=','invoiced')->count() }}</h2>
+                                <span class="font-size-13">تجربه های کاری</span>
+                                <h2 class="mb-0 ml-auto font-weight-bold text-success primary-font line-height-20">{{ $totalDaysWorked }}
+                                    روز
+                                </h2>
                             </div>
                         </div>
                     </div>
                 </div>
-                @can('accountant')
+                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+                    <div class="card border mb-0">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <div>
+                                    <div class="icon-block icon-block-sm bg-info icon-block-floating mr-2">
+                                        <i class="fa-solid fa-circle-nodes"></i>
+                                    </div>
+                                </div>
+                                <span class="font-size-13">نقش ها</span>
+                                <h2 class="mb-0 ml-auto font-weight-bold text-info primary-font line-height-30">{{ \App\Models\Role::count() }}</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+                    <div class="card border mb-0">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <div>
+                                    <div class="icon-block icon-block-sm bg-warning icon-block-floating mr-2">
+                                        <i class="fa-solid fa-quote-right"></i>
+                                    </div>
+                                </div>
+                                <span class="font-size-13">یادداشت ها</span>
+                                <h2 class="mb-0 ml-auto font-weight-bold text-warning primary-font line-height-30">{{ \App\Models\Note::count() }}</h2>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                @can('sms-list')
                     <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
                         <div class="card border mb-0">
                             <div class="card-body">
                                 <div class="d-flex align-items-center mb-3">
                                     <div>
                                         <div class="icon-block icon-block-sm bg-primary icon-block-floating mr-2">
-                                            <i class="fa fa-shopping-cart"></i>
+                                            <i class="fa-solid fa-comment-sms"></i>
                                         </div>
                                     </div>
-                                    <span class="font-size-13">فاکتور</span>
-                                    <h2 class="mb-0 ml-auto font-weight-bold text-primary primary-font line-height-30">{{ \App\Models\Invoice::where('status','invoiced')->count() }}</h2>
+                                    <span class="font-size-13">اس ام اس های ارسال شده</span>
+                                    <h2 class="mb-0 ml-auto font-weight-bold text-primary primary-font line-height-30">{{ \App\Models\SMS::count() }}</h2>
                                 </div>
                             </div>
                         </div>
@@ -131,15 +180,16 @@
                             <div class="d-flex align-items-center mb-3">
                                 <div>
                                     <div class="icon-block icon-block-sm bg-danger icon-block-floating mr-2">
-                                        <i class="fa fa-cube"></i>
+                                        <i class="fa-solid fa-comments"></i>
                                     </div>
                                 </div>
-
-                                <span class="font-size-13">بسته های ارسالی</span>
-                                <h2 class="mb-0 ml-auto font-weight-bold text-danger primary-font line-height-30">{{ \App\Models\Packet::count() }}</h2>
+                                <span class="font-size-13">گفت و گو ها</span>
+                                <h2 class="mb-0 ml-auto font-weight-bold text-danger primary-font line-height-30">{{ \App\Models\Ticket::where('sender_id', Auth::user()->id)->count() }}
+                                </h2>
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -173,89 +223,124 @@
             @endif
         </div>
     </div>
-    @canany(['accountant','Organ','partner-tehran'])
+    @canany(['accountant','Organ','partner-tehran','user'])
         <div class="row">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between">
-                            <h6 class="card-title m-b-20">فیلتر گزارشات</h6>
-                        </div>
-                        <div class="row">
-                            <div class="col-xl-2 col-lg-3 col-md-3 mb-3">
-                                <label for="from_date">از تاریخ</label>
-                                <input type="text" name="from_date" class="form-control date-picker-shamsi-list"
-                                       id="from_date" value="{{ request()->from_date }}" form="search_form">
+            {{--            <div class="col-12">--}}
+            {{--                <div class="card">--}}
+            {{--                    <div class="card-body">--}}
+            {{--                        <div class="d-flex justify-content-between">--}}
+            {{--                            <h6 class="card-title m-b-20">فیلتر گزارشات</h6>--}}
+            {{--                        </div>--}}
+            {{--                        <div class="row">--}}
+            {{--                            <div class="col-xl-2 col-lg-3 col-md-3 mb-3">--}}
+            {{--                                <label for="from_date">از تاریخ</label>--}}
+            {{--                                <input type="text" name="from_date" class="form-control date-picker-shamsi-list"--}}
+            {{--                                       id="from_date" value="{{ request()->from_date }}" form="search_form">--}}
+            {{--                            </div>--}}
+            {{--                            <div class="col-xl-2 col-lg-3 col-md-3 mb-3">--}}
+            {{--                                <label for="to_date">تا تاریخ</label>--}}
+            {{--                                <input type="text" name="to_date" class="form-control date-picker-shamsi-list"--}}
+            {{--                                       id="to_date" value="{{ request()->to_date }}" form="search_form">--}}
+            {{--                            </div>--}}
+            {{--                            <div class="col-xl-2 col-lg-3 col-md-3 mb-3">--}}
+            {{--                                <div style="height: 36px"></div>--}}
+            {{--                                <button type="submit" class="btn btn-primary" form="search_form">جستجو</button>--}}
+            {{--                            </div>--}}
+            {{--                            <form action="{{ route('panel') }}" method="post" id="search_form">--}}
+            {{--                                @csrf--}}
+            {{--                            </form>--}}
+            {{--                        </div>--}}
+            {{--                    </div>--}}
+            {{--                </div>--}}
+            {{--            </div>--}}
+            @can('invoices-list')
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <h6 class="card-title m-b-20">گزارشات سفارش مشتری</h6>
+                                <h6 class="card-title m-b-20">مجموع: {{ number_format($invoices->sum('amount')) }}</h6>
                             </div>
-                            <div class="col-xl-2 col-lg-3 col-md-3 mb-3">
-                                <label for="to_date">تا تاریخ</label>
-                                <input type="text" name="to_date" class="form-control date-picker-shamsi-list"
-                                       id="to_date" value="{{ request()->to_date }}" form="search_form">
+                            <canvas id="bar_chart_sale1" style="width: auto"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <h6 class="card-title m-b-20">گزارشات فاکتور</h6>
+                                <h6 class="card-title m-b-20">مجموع: {{ number_format($factors->sum('amount')) }}</h6>
                             </div>
-                            <div class="col-xl-2 col-lg-3 col-md-3 mb-3">
-                                <div style="height: 36px"></div>
-                                <button type="submit" class="btn btn-primary" form="search_form">جستجو</button>
+                            <canvas id="bar_chart_sale2" style="width: auto"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <h6 class="card-title m-b-20">آمار سفارشات محصولات</h6>
+                                <h6 class="card-title m-b-20">تعداد کل
+                                    سفارشات: {{ number_format($orderCounts->sum()) }}</h6>
                             </div>
-                            <form action="{{ route('panel') }}" method="post" id="search_form">
-                                @csrf
-                            </form>
+                            <canvas id="bar_chart_product_orders" style="width: auto"></canvas>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between">
-                            <h6 class="card-title m-b-20">گزارشات سفارش مشتری</h6>
-                            <h6 class="card-title m-b-20">مجموع: {{ number_format($invoices->sum('amount')) }}</h6>
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h6 class="card-title m-b-20">نمودار موجودی انبارها</h6>
+                            <canvas id="pie_chart_inventory" style="width: auto"></canvas>
                         </div>
-                        <canvas id="bar_chart_sale1" style="width: auto"></canvas>
                     </div>
                 </div>
-            </div>
-            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between">
-                            <h6 class="card-title m-b-20">گزارشات فاکتور</h6>
-                            <h6 class="card-title m-b-20">مجموع: {{ number_format($factors->sum('amount')) }}</h6>
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <h6 class="card-title m-b-20">آمار سفارشات مشتریان</h6>
+                                <h6 class="card-title m-b-20">تعداد کل
+                                    سفارشات: {{ number_format($orderCounts->sum()) }}</h6>
+                            </div>
+                            <canvas id="bar_chart_customer_orders" style="width: auto"></canvas>
                         </div>
-                        <canvas id="bar_chart_sale2" style="width: auto"></canvas>
                     </div>
                 </div>
-            </div>
-            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between">
-                            <h6 class="card-title m-b-20">آمار سفارشات محصولات</h6>
-                            <h6 class="card-title m-b-20">تعداد کل سفارشات: {{ number_format($orderCounts->sum()) }}</h6>
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <h6 class="card-title m-b-20">گزارشات ماهیانه (فاکتور)</h6>
+                                <select class="form-control mr-4" style="width: 140px" id="change_line_chart3">
+                                    <option value="line">نمودار خطی</option>
+                                    <option value="bar">نمودار ستونی</option>
+                                </select>
+                            </div>
+                            <div id="bar_chart_sale3_sec" class="d-none">
+                                <canvas id="bar_chart_sale3" style="width: auto"></canvas>
+                            </div>
+                            <div id="line_chart_sale3_sec" class="d-block">
+                                <canvas id="line_chart_sale3" style="width: auto"></canvas>
+                            </div>
                         </div>
-                        <canvas id="bar_chart_product_orders" style="width: auto"></canvas>
                     </div>
                 </div>
-            </div>
-            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h6 class="card-title m-b-20">نمودار موجودی انبارها</h6>
-                        <canvas id="pie_chart_inventory" style="width: auto"></canvas>
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <h6 class="card-title m-b-20">موجودی محصولات در انبار</h6>
+                                <h6 class="card-title m-b-20">تعداد کل
+                                    موجودی: {{ number_format($productCounts->sum()) }}</h6>
+                            </div>
+                            <canvas id="bar_chart_product_inventory" style="width: auto"></canvas>
+                        </div>
                     </div>
                 </div>
-            </div>
+            @endcan
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between">
-                            <h6 class="card-title m-b-20">آمار سفارشات مشتریان</h6>
-                            <h6 class="card-title m-b-20">تعداد کل سفارشات: {{ number_format($orderCounts->sum()) }}</h6>
-                        </div>
-                        <canvas id="bar_chart_customer_orders" style="width: auto"></canvas>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
@@ -263,25 +348,6 @@
                             <h6 class="card-title m-b-20">مجموع بازدیدها: {{ number_format($totalVisits) }}</h6>
                         </div>
                         <canvas id="bar_chart_user_visits" style="width: auto"></canvas>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between">
-                            <h6 class="card-title m-b-20">گزارشات ماهیانه (فاکتور)</h6>
-                            <select class="form-control mr-4" style="width: 140px" id="change_line_chart3">
-                                <option value="line">نمودار خطی</option>
-                                <option value="bar">نمودار ستونی</option>
-                            </select>
-                        </div>
-                        <div id="bar_chart_sale3_sec" class="d-none">
-                            <canvas id="bar_chart_sale3" style="width: auto"></canvas>
-                        </div>
-                        <div id="line_chart_sale3_sec" class="d-block">
-                            <canvas id="line_chart_sale3" style="width: auto"></canvas>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -309,17 +375,6 @@
                     </div>
                 </div>
             @endcan
-            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between">
-                            <h6 class="card-title m-b-20">موجودی محصولات در انبار</h6>
-                            <h6 class="card-title m-b-20">تعداد کل موجودی: {{ number_format($productCounts->sum()) }}</h6>
-                        </div>
-                        <canvas id="bar_chart_product_inventory" style="width: auto"></canvas>
-                    </div>
-                </div>
-            </div>
         </div>
 
         @can('sms-list')
@@ -461,7 +516,7 @@
                                     beginAtZero: true,
                                     fontSize: 15,
                                     color: '#999',
-                                    callback: function(value) {
+                                    callback: function (value) {
                                         return value.toLocaleString('fa-IR');
                                     }
                                 },
@@ -1067,7 +1122,7 @@
                 },
             });
         }
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             var ctx = document.getElementById('sms_chart').getContext('2d');
 
             var data = {
@@ -1086,7 +1141,7 @@
                         },
                         tooltip: {
                             callbacks: {
-                                label: function(context) {
+                                label: function (context) {
                                     var label = context.dataset.label || '';
                                     if (label) {
                                         label += ': ';
@@ -1120,7 +1175,7 @@
                             },
                             ticks: {
                                 beginAtZero: true, // برای اطمینان از اینکه محور Y از صفر شروع می‌شود
-                                callback: function(value) {
+                                callback: function (value) {
                                     return value.toLocaleString('fa-IR');
                                 }
                             },
@@ -1169,7 +1224,7 @@
                                     beginAtZero: true,
                                     fontSize: 15,
                                     color: '#999',
-                                    callback: function(value) {
+                                    callback: function (value) {
                                         return value.toLocaleString('fa-IR');
                                     }
                                 },
@@ -1231,7 +1286,7 @@
                                     beginAtZero: true,
                                     fontSize: 15,
                                     color: '#999',
-                                    callback: function(value) {
+                                    callback: function (value) {
                                         return value.toLocaleString('fa-IR');
                                     }
                                 },

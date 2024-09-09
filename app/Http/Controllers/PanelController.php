@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Inventory;
 use App\Models\Invoice;
+use App\Models\JobHistory;
 use App\Models\Role;
 use App\Models\Sms;
 use App\Models\User;
@@ -379,6 +380,16 @@ class PanelController extends Controller
 // آماده‌سازی داده‌ها برای نمودار
         $productNames = $products->pluck('title');  // نام محصولات
         $productCounts = $products->pluck('total_count');  // مقدار موجودی هر محصول
+        $jobHistories = JobHistory::all();
+        $totalDaysWorked = 0;
+
+        foreach ($jobHistories as $jobHistory) {
+            $fromDate = Carbon::parse(Jalalian::fromFormat('Y/m/d', $jobHistory->from_date)->toCarbon())->startOfDay();
+            $toDate = $jobHistory->to_date === 'تا اکنون' ? Carbon::now() : Carbon::parse(Jalalian::fromFormat('Y/m/d', $jobHistory->to_date)->toCarbon())->endOfDay();
+
+            $diffInDays = $toDate->diffInDays($fromDate);
+            $totalDaysWorked += $diffInDays;
+        }
         return view('panel.index', [
             'labels' => $labels,
             'datasets' => $datasets,
@@ -388,7 +399,7 @@ class PanelController extends Controller
             'orderCounts' => $orderCounts,
             'customerNames' => $customerNames,
             'orderCounts2' => $orderCounts2,
-        ], compact('invoices', 'factors', 'factors_monthly', 'userVisits', 'totalVisits', 'users', 'sms_dates', 'sms_counts', 'totalSmsSent','users2','inventories','productNames', 'productCounts'));
+        ], compact('invoices', 'factors', 'factors_monthly', 'userVisits', 'totalVisits', 'users', 'sms_dates', 'sms_counts', 'totalSmsSent','users2','inventories','productNames', 'productCounts','jobHistories','totalDaysWorked'));
     }
         public function readNotification($notification = null)
     {
