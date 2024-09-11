@@ -29,7 +29,7 @@ class CallController extends Controller
         Call::create($request->all());
 
         // بازگشت به صفحه لیست رکوردها با پیام موفقیت
-        return redirect()->route('panel.calls.index')->with('success', 'Call created successfully.');
+        return redirect()->route('calls.index')->with('success', 'Call created successfully.');
     }
 
     // نمایش یک رکورد خاص Call
@@ -54,7 +54,7 @@ class CallController extends Controller
         $call->update($request->all());
 
         // بازگشت به صفحه لیست رکوردها با پیام موفقیت
-        return redirect()->route('panel.calls.index')->with('success', 'Call updated successfully.');
+        return redirect()->route('calls.index')->with('success', 'Call updated successfully.');
     }
 
     // حذف یک رکورد خاص Call از دیتابیس
@@ -64,7 +64,7 @@ class CallController extends Controller
         $call->delete();
 
         // بازگشت به صفحه لیست رکوردها با پیام موفقیت
-        return redirect()->route('panel.calls.index')->with('success', 'Call deleted successfully.');
+        return redirect()->route('calls.index')->with('success', 'Call deleted successfully.');
     }
     public function search(Request $request)
     {
@@ -87,9 +87,9 @@ class CallController extends Controller
         }
 
         // صفحه‌بندی نتایج جستجو
-        $userDetailsList = $query->paginate(10);
+        $calls = $query->paginate(10);
 
         // بازگرداندن ویو همراه با نتایج جستجو
-        return view('panel.calls.index', compact('userDetailsList'));
+        return view('panel.calls.index', compact('calls'));
     }
 }

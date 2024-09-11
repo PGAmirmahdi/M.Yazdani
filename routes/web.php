@@ -11,6 +11,7 @@ use App\Http\Controllers\Panel\ChatController;
 use App\Http\Controllers\Panel\CouponController;
 use App\Http\Controllers\Panel\CustomerController;
 use App\Http\Controllers\Panel\DeliveryDayController;
+use App\Http\Controllers\Panel\ExampleController;
 use App\Http\Controllers\Panel\ExitDoorController;
 use App\Http\Controllers\Panel\FactorController;
 use App\Http\Controllers\Panel\FavoriteController;
@@ -313,8 +314,12 @@ Route::middleware('auth')->prefix('/panel')->group(function () {
     Route::resource('JobHistory', JobHistoryController::class);
 
     // Calls
-    Route::resource('calls', CallController::class)->except('edit','update');
+    Route::resource('calls', CallController::class);
     Route::match(['get', 'post'], 'search/calls', [CallController::class, 'search'])->name('calls.search');
+
+    // Examples
+    Route::resource('example', ExampleController::class);
+    Route::get('example/file/{filename}', [ExampleController::class, 'showFile'])->name('example.file.show');
 
 });
 Route::get('/user-visits', function() {

@@ -29,7 +29,7 @@
                 </li>
             @endcanany
             @canany(['customers-list','foreign-customers-list','sms-list'])
-                <li class="{{ active_sidebar(['customers','customers/create','customers/{customer}/edit','search/customers','foreign-customers','foreign-customers/create','foreign-customers/{foreign_customer}/edit','search/foreign-customers','sms','sms/create','sms/{sms}/edit','sms.search','sms/{sms}/show','calls','calls/create','calls/{calls}/edit','calls/{calls}/show']) ? 'active' : '' }}" data-toggle="tooltip" title="CRM">
+                <li class="{{ active_sidebar(['customers','customers/create','customers/{customer}/edit','search/customers','foreign-customers','foreign-customers/create','foreign-customers/{foreign_customer}/edit','search/foreign-customers','sms','sms/create','sms/{sms}/edit','sms.search','sms/{sms}/show','calls','calls/create','calls/{call}/edit','calls/{call}/show','calls/search']) ? 'active' : '' }}" data-toggle="tooltip" title="CRM">
                     <a href="#navigationCustomers" title="CRM">
                         <i class="icon ti-user"></i>
                     </a>
@@ -64,7 +64,7 @@
                 </li>
             @endcan
             @can('resume')
-            <li class="{{ active_sidebar(['resume','resume/{resume}/edit','resume/create','resume/index','favorites','favorites/create','favorites/{favorite}/edit','JobHistory','JobHistory/create','JobHistory/{JobHistory}/edit']) ? 'active' : '' }}" data-toggle="tooltip" title="مشخصات">
+            <li class="{{ active_sidebar(['resume','resume/{resume}/edit','resume/create','resume/index','favorites','favorites/create','favorites/{favorite}/edit','JobHistory','JobHistory/create','JobHistory/{JobHistory}/edit','example','example/create','example/{example}/edit','example/{example}/show']) ? 'active' : '' }}" data-toggle="tooltip" title="مشخصات">
                 <a href="#navigationInfo" title="مشخصات">
                     <i class="icon ti-info-alt"></i>
                 </a>
@@ -224,7 +224,7 @@
                 </li>
             @endcan
         </ul>
-        <ul id="navigationCustomers" class="{{ active_sidebar(['customers','customers/create','customers/{customer}/edit','search/customers','foreign-customers','foreign-customers/create','foreign-customers/{foreign_customer}/edit','search/foreign-customers','sms','sms/create','sms/{sms}/edit','sms.search','sms/{sms}/show','calls','calls/create','calls/{calls}/edit','calls/{calls}/show']) ? 'navigation-active' : '' }}">
+        <ul id="navigationCustomers" class="{{ active_sidebar(['customers','customers/create','customers/{customer}/edit','search/customers','foreign-customers','foreign-customers/create','foreign-customers/{foreign_customer}/edit','search/foreign-customers','sms','sms/create','sms/{sms}/edit','sms.search','sms/{sms}/show','calls','calls/create','calls/{call}/edit','calls/{call}/show','calls/{call}/search']) ? 'navigation-active' : '' }}">
             <li class="navigation-divider">CRM</li>
             @can('customers-list')
                 <li>
@@ -243,7 +243,7 @@
             @endcan
             @can('calls-list')
                 <li>
-                    <a class="{{ active_sidebar(['calls','calls/create','calls/{calls}/edit','calls/{calls}/show']) ? 'active' : '' }}" href="{{ route('calls.index') }}">درخواست تماس</a>
+                    <a class="{{ active_sidebar(['calls','calls/create','calls/{call}/edit','calls/{call}/show','calls/search']) ? 'active' : '' }}" href="{{ route('calls.index') }}">درخواست تماس</a>
                 </li>
             @endcan
         </ul>
@@ -320,7 +320,7 @@
             @endcan
         </ul>
 
-        <ul id="navigationInfo" class="{{ active_sidebar(['resume','resume/{resume}/edit','resume/create','resume/index','favorites','favorites/create','favorites/{favorite}/edit','JobHistory','JobHistory/create','JobHistory/{JobHistory}/edit']) ? 'navigation-active' : '' }}">
+        <ul id="navigationInfo" class="{{ active_sidebar(['resume','resume/{resume}/edit','resume/create','resume/index','favorites','favorites/create','favorites/{favorite}/edit','JobHistory','JobHistory/create','JobHistory/{JobHistory}/edit','example','example/create','example/{example}/edit','example/{example}/show']) ? 'navigation-active' : '' }}">
             <li class="navigation-divider">مشخصات</li>
             @can('resume')
                 <li>
@@ -335,6 +335,11 @@
             @can('list-JobHistory')
                 <li>
                     <a class="{{ active_sidebar(['JobHistory','JobHistory/create','JobHistory/{JobHistory}/edit']) ? 'active' : '' }}" href="{{ route('JobHistory.index') }}">تجربه های کاری</a>
+                </li>
+            @endcan
+            @can('list-example')
+                <li>
+                    <a class="{{ active_sidebar(['example','example/create','example/{example}/edit','example/{example}/show']) ? 'active' : '' }}" href="{{ route('example.index') }}">نمونه کار هام</a>
                 </li>
             @endcan
         </ul>

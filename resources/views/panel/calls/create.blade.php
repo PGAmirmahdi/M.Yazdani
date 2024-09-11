@@ -6,7 +6,7 @@
             <div class="card-title d-flex justify-content-between align-items-center">
                 <h6>ایجاد تماس جدید</h6>
             </div>
-            <form action="{{ route('panel.calls.store') }}" method="post">
+            <form action="{{ route('calls.store') }}" method="post">
                 @csrf
                 <div class="form-row">
                     <!-- Name Field -->

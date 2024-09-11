@@ -6,7 +6,7 @@
             <div class="card-title d-flex justify-content-between align-items-center">
                 <h6>ویرایش تماس</h6>
             </div>
-            <form action="{{ route('panel.calls.update', $call->id) }}" method="post">
+            <form action="{{ route('calls.update', $call->id) }}" method="post">
                 @csrf
                 @method('PUT')
                 <div class="form-row">

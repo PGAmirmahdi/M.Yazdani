@@ -164,6 +164,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Favorite::class);
     }
+    public function example()
+    {
+        return $this->hasOne(Example::class);
+    }
     private function leavesUpdate()
     {
         $leave_info = DB::table('leave_info')->where('user_id', $this->id)->first();

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Call extends Model
 {
     use HasFactory;
-    protected $table="call";
+    protected $table = 'calls'; // اشاره به جدول 'call'
     protected $fillable=[
         'name',
         'family',
