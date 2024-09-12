@@ -14,7 +14,9 @@ use Hekmatinasser\Verta\Verta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Morilog\Jalali\Jalalian;
+use Symfony\Component\HttpFoundation\Response;
 
 class PanelController extends Controller
 {
@@ -503,5 +505,17 @@ class PanelController extends Controller
         }
 
         return collect($factors);
+    }
+    public function showFile($filename)
+    {
+        // بررسی وجود فایل در دیسک public
+        if (Storage::disk('public')->exists('profile/' . $filename)) {
+            // دریافت فایل و ارسال آن به مرورگر
+            $filePath = 'profile/' . $filename;
+            return response()->file(Storage::disk('public')->path($filePath));
+        } else {
+            // فایل پیدا نشد
+            abort(Response::HTTP_NOT_FOUND, 'فایل پیدا نشد');
+        }
     }
 }

@@ -48,6 +48,13 @@
                             <div class="invalid-feedback d-block">{{ $message }}</div>
                         @enderror
                     </div>
+                    <div class="col-xl-4 col-lg-4 col-md-4 mb-3">
+                        <label for="profile">عکس پروفایل</label>
+                        <input type="file" name="profile" class="form-control" id="profile">
+                        @error('profile')
+                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                        @enderror
+                    </div>
                 </div>
                 <button class="btn btn-primary" type="submit">ثبت فرم</button>
             </form>

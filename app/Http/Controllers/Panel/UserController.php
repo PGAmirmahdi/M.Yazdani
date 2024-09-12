@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -47,7 +48,17 @@ class UserController extends Controller
             'job' => 'بدون شغل', // مقدار پیش‌فرض برای شغل
             'job_history' => 0, // مقدار پیش‌فرض برای سابقه شغلی
         ]);
+        if ($request->hasFile('profile')) {
+            // حذف فایل قدیمی
+            if ($user->profile) {
+                Storage::disk('public')->delete($user->profile);
+            }
 
+            // ذخیره فایل جدید
+            $filePath = $request->file('profile')->store('profile', 'public');
+            $user->profile = $filePath;
+        }
+        $user->save();
         // اجرای متد createLeaveInfo برای کاربر
         $this->createLeaveInfo($user);
 
@@ -75,21 +86,23 @@ class UserController extends Controller
     {
         $this->authorize('users-edit');
 
-        if (auth()->user()->isAdmin()){
-            if ($request->sign_image){
-                if ($user->sign_image){
+        // به‌روزرسانی امضا برای ادمین‌ها
+        if (auth()->user()->isAdmin()) {
+            if ($request->hasFile('sign_image')) {
+                if ($user->sign_image) {
+                    // حذف فایل امضای قدیمی
                     unlink(public_path($user->sign_image));
-                    $sign_image = upload_file($request->file('sign_image'),'Signs');
-                }else{
-                    $sign_image = upload_file($request->file('sign_image'),'Signs');
                 }
-            }else{
+                // آپلود فایل جدید
+                $sign_image = upload_file($request->file('sign_image'), 'Signs');
+            } else {
                 $sign_image = $user->sign_image;
             }
-        }else{
+        } else {
             $sign_image = $user->sign_image;
         }
 
+        // به‌روزرسانی اطلاعات کاربر
         $user->update([
             'name' => $request->name,
             'family' => $request->family,
@@ -99,11 +112,26 @@ class UserController extends Controller
             'sign_image' => $sign_image,
         ]);
 
-        if (Gate::allows('edit-profile',$user->id)){
-            alert()->success('پروفایل شما با موفقیت ویرایش شد','ویرایش پروفایل');
+        // به‌روزرسانی فایل پروفایل
+        if ($request->hasFile('profile')) {
+            // حذف فایل قدیمی پروفایل
+            if ($user->profile) {
+                Storage::disk('public')->delete($user->profile);
+            }
+            // ذخیره فایل جدید پروفایل
+            $filePath = $request->file('profile')->store('profile', 'public');
+            $user->profile = $filePath;
+        }
+
+        // ذخیره تغییرات نهایی
+        $user->save();
+
+        // پیام موفقیت و بازگشت
+        if (Gate::allows('edit-profile', $user->id)) {
+            alert()->success('پروفایل شما با موفقیت ویرایش شد', 'ویرایش پروفایل');
             return redirect()->back();
-        }else{
-            alert()->success('کاربر مورد نظر با موفقیت ویرایش شد','ویرایش کاربر');
+        } else {
+            alert()->success('کاربر مورد نظر با موفقیت ویرایش شد', 'ویرایش کاربر');
             return redirect()->route('users.index');
         }
     }

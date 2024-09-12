@@ -93,9 +93,21 @@
                 <li class="nav-item dropdown">
                     <a href="javascript:void(0)" class="nav-link bg-none">
                         <div>
-                            <figure class="avatar avatar-state-success avatar-sm">
-                                <img src="{{asset('assets/media/image/avatar.png')}}" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="{{ auth()->user()->fullName() }}" class="rounded-circle" alt="image">
-                            </figure>
+                            @if(auth()->user()->profile)
+                                <figure class="avatar avatar-state-success avatar-sm">
+                                    <img src="{{ route('panel.file.show', ['filename' => basename(auth()->user()->profile)]) }}"
+                                         style="max-height: 36.79px; max-width: 36.79px"
+                                         data-toggle="tooltip" data-placement="bottom" title="{{ auth()->user()->fullName() }}"
+                                         class="rounded-circle" alt="image">
+                                </figure>
+                            @else
+                                <figure class="avatar avatar-state-success avatar-sm">
+                                    <img src="{{ asset('assets/media/image/avatar.png') }}"
+                                         data-toggle="tooltip" data-placement="bottom"
+                                         title="{{ auth()->user()->fullName() }}"
+                                         class="rounded-circle" alt="image">
+                                </figure>
+                            @endif
                         </div>
                     </a>
                 </li>

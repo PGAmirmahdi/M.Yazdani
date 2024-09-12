@@ -3,6 +3,7 @@
 use App\Events\SendMessage as SendMessageEvent;
 use App\Events\TestEvent;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LandingController;
 use App\Http\Controllers\Panel\ArtinController;
 use App\Http\Controllers\Panel\BotController;
 use App\Http\Controllers\Panel\BuyOrderController;
@@ -59,9 +60,11 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Panel\ChequeController;
 use PDF as PDF;
+use Symfony\Component\HttpFoundation\Response;
 
 
 /*
@@ -74,8 +77,9 @@ use PDF as PDF;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
+Route::resource('/', LandingController::class);
+Route::get('/file/{filename}', [LandingController::class, 'showFile'])->name('file.show');
+Route::get('/log-in', function () {
     if (Auth::check()) {
         return redirect()->to('/panel');
     }
@@ -117,10 +121,11 @@ Route::get('test/{id?}', function ($id = null) {
 //})->name('import-excel');
 
 Route::middleware('auth')->prefix('/panel')->group(function () {
+    Route::get('panel/file/{filename}', [PanelController::class, 'showFile'])->name('panel.file.show');
     Route::match(['get', 'post'], '/', [PanelController::class, 'index'])->name('panel');
     Route::post('send-sms', [PanelController::class, 'sendSMS'])->name('sendSMS');
-    Route::post('najva_token', [PanelController::class, 'najva_token_store']);
-    Route::post('saveFcmToken', [PanelController::class, 'saveFCMToken']);
+//    Route::post('najva_token', [PanelController::class, 'najva_token_store']);
+//    Route::post('saveFcmToken', [PanelController::class, 'saveFCMToken']);
 
     // Users
     Route::resource('users', UserController::class)->except('show');
