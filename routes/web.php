@@ -38,6 +38,7 @@ use App\Http\Controllers\Panel\RoleController;
 use App\Http\Controllers\Panel\SaleReportController;
 use App\Http\Controllers\Panel\ScrapController;
 use App\Http\Controllers\Panel\ShopController;
+use App\Http\Controllers\Panel\SkillController;
 use App\Http\Controllers\Panel\SMSController;
 use App\Http\Controllers\Panel\SmsHistoryController;
 use App\Http\Controllers\Panel\SoftwareUpdateController;
@@ -320,6 +321,10 @@ Route::middleware('auth')->prefix('/panel')->group(function () {
     // Examples
     Route::resource('example', ExampleController::class);
     Route::get('example/file/{filename}', [ExampleController::class, 'showFile'])->name('example.file.show');
+
+    // Skills
+    Route::resource('skill', SkillController::class);
+    Route::get('skill/file/{filename}', [SkillController::class, 'showFile'])->name('skill.file.show');
 
 });
 Route::get('/user-visits', function() {
