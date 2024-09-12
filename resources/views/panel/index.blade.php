@@ -189,10 +189,42 @@
                             </div>
                         </div>
                     </div>
-
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+                    <div class="card border mb-0">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <div>
+                                    <div class="icon-block icon-block-sm bg-warning icon-block-floating mr-2">
+                                        <i class="fa-solid fa-barcode"></i>
+                                    </div>
+                                </div>
+                                <span class="font-size-13">نمونه کار هام</span>
+                                <h2 class="mb-0 ml-auto font-weight-bold text-warning primary-font line-height-30">{{ \App\Models\Example::where('user_id', Auth::user()->id)->count() }}
+                                </h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+                    <div class="card border mb-0">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <div>
+                                    <div class="icon-block icon-block-sm bg-info icon-block-floating mr-2">
+                                        <i class="fa-solid fa-thumbtack"></i>
+                                    </div>
+                                </div>
+                                <span class="font-size-13">مهارت هام</span>
+                                <h2 class="mb-0 ml-auto font-weight-bold text-info primary-font line-height-30">{{ \App\Models\Skill::where('user_id', Auth::user()->id)->count() }}
+                                </h2>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
     <div class="card">
         <div class="card-body pt-2 pb-0">
@@ -209,7 +241,8 @@
                             <div class="lines">
                                 <input type="text" name="note-title" class="title" value="{{ $note->title }}"
                                        maxlength="30" placeholder="عنوان یادداشت" disabled>
-                                <textarea class="text" name="note-text" spellcheck="false" placeholder="متن یادداشت..."
+                                <textarea class="text" name="note-text" spellcheck="false"
+                                          placeholder="متن یادداشت..."
                                           disabled>{{ $note->text }}</textarea>
                             </div>
                             <div class="holes hole-top"></div>
@@ -259,7 +292,8 @@
                         <div class="card-body">
                             <div class="d-flex justify-content-between">
                                 <h6 class="card-title m-b-20">گزارشات سفارش مشتری</h6>
-                                <h6 class="card-title m-b-20">مجموع: {{ number_format($invoices->sum('amount')) }}</h6>
+                                <h6 class="card-title m-b-20">
+                                    مجموع: {{ number_format($invoices->sum('amount')) }}</h6>
                             </div>
                             <canvas id="bar_chart_sale1" style="width: auto"></canvas>
                         </div>
@@ -270,7 +304,8 @@
                         <div class="card-body">
                             <div class="d-flex justify-content-between">
                                 <h6 class="card-title m-b-20">گزارشات فاکتور</h6>
-                                <h6 class="card-title m-b-20">مجموع: {{ number_format($factors->sum('amount')) }}</h6>
+                                <h6 class="card-title m-b-20">
+                                    مجموع: {{ number_format($factors->sum('amount')) }}</h6>
                             </div>
                             <canvas id="bar_chart_sale2" style="width: auto"></canvas>
                         </div>
@@ -412,7 +447,8 @@
                             </tfoot>
                         </table>
                     </div>
-                    <div class="d-flex justify-content-center">{{ $smsData->appends(request()->all())->links() }}</div>
+                    <div
+                        class="d-flex justify-content-center">{{ $smsData->appends(request()->all())->links() }}</div>
                 </div>
             </div>
         @endcan
@@ -452,7 +488,8 @@
                             </tfoot>
                         </table>
                     </div>
-                    <div class="d-flex justify-content-center">{{ $users->appends(request()->all())->links() }}</div>
+                    <div
+                        class="d-flex justify-content-center">{{ $users->appends(request()->all())->links() }}</div>
                 </div>
             </div>
         @endcan

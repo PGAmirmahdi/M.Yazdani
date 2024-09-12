@@ -51,7 +51,7 @@
                                             مرورگر شما از پخش ویدیو پشتیبانی نمی‌کند.
                                         </video>
                                         @else
-                                            <img src="{{ route('example.file.show', ['filename' => basename($example->file)]) }}" alt="فایل" class="btn btn-info btn-sm" style="max-width: 100px; max-height: 100px;">
+                                            <a href="{{ route('example.file.show', ['filename' => basename($example->file)]) }}"><img src="{{ route('example.file.show', ['filename' => basename($example->file)]) }}" alt="فایل" class="btn btn-info btn-sm" style="max-width: 100px; max-height: 100px;"></a>
                                         @endif
                                     @else
                                         <span class="text-muted">فایل ندارد</span>

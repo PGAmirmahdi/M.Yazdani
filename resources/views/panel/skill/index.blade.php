@@ -10,7 +10,7 @@
                     @can('create-skill')
                         <a href="{{ route('skill.create') }}" class="btn btn-primary">
                             <i class="fa fa-plus mr-2"></i>
-                            ایجاد نمونه کار
+                            ایجاد مهارت
                         </a>
                     @endcan
                 </div>
@@ -51,7 +51,7 @@
                                             مرورگر شما از پخش ویدیو پشتیبانی نمی‌کند.
                                         </video>
                                         @else
-                                            <img src="{{ route('skill.file.show', ['filename' => basename($skill->file)]) }}" alt="فایل" class="btn btn-info btn-sm" style="max-width: 100px; max-height: 100px;">
+                                            <a href="{{ route('skill.file.show', ['filename' => basename($skill->file)]) }}"><img src="{{ route('skill.file.show', ['filename' => basename($skill->file)]) }}" alt="فایل" class="btn btn-info btn-sm" style="max-width: 100px; max-height: 100px;"></a>
                                         @endif
                                     @else
                                         <span class="text-muted">فایل ندارد</span>
