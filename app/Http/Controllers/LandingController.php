@@ -7,6 +7,7 @@ use App\Models\Example;
 use App\Models\Favorite;
 use App\Models\JobHistory;
 use App\Models\Resume;
+use App\Models\SiteVisit;
 use App\Models\Skill;
 use App\Models\User;
 use App\Models\Call;
@@ -39,6 +40,13 @@ class LandingController extends Controller
             $diffInDays = $toDate->diffInDays($fromDate);
             $totalDaysWorked += $diffInDays;
         }
+        // دریافت IP آدرس کاربر
+        $ipAddress = request()->ip();
+
+        // ذخیره‌سازی IP آدرس در دیتابیس
+        SiteVisit::create([
+            'ip_address' => $ipAddress,
+        ]);
         return view('landing', compact('user', 'resume', 'example', 'customer','totalDaysWorked','skills','jobHistories','favorites'));
     }
 
@@ -52,12 +60,6 @@ class LandingController extends Controller
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(StoreCallRequest $request)
     {
         Call::create($request->all());

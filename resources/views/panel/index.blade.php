@@ -379,7 +379,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
-                            <h6 class="card-title m-b-20">آمار بازدید کاربران</h6>
+                            <h6 class="card-title m-b-20">آمار بازدید کاربران از پنل</h6>
                             <h6 class="card-title m-b-20">مجموع بازدیدها: {{ number_format($totalVisits) }}</h6>
                         </div>
                         <canvas id="bar_chart_user_visits" style="width: auto"></canvas>
@@ -452,11 +452,54 @@
                 </div>
             </div>
         @endcan
+        <!-- Container for the chart -->
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <h6 class="card-title m-b-20">آمار بازدید کاربران از سایت</h6>
+                        <h6 class="card-title m-b-20">مجموع بازدیدها: {{ number_format($totalVisits10) }}</h6>
+                    </div>
+                    <canvas id="bar_chart_user_visits3" style="width: auto"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="card-title d-flex justify-content-between align-items-center">
+                    <h6>آمار بازدید از سایت</h6>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered dataTable dtr-inline text-center">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>آیپی</th>
+                            <th>تاریخ بازدید</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($sitevisits2 as $key => $visit2)
+                            <tr>
+                                <td>{{ ++$key }}</td>
+                                <td>{{ $visit2->ip_address }}</td>
+                                <td>{{ \Morilog\Jalali\Jalalian::fromDateTime($visit2  ->created_at)->format('H:i:s - Y-m-d') }}</td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
         @can('UserVisit')
             <div class="card">
                 <div class="card-body">
                     <div class="card-title d-flex justify-content-between align-items-center">
-                        <h6>لیست بازدید کاربران</h6>
+                        <h6>لیست بازدید کاربران از پنل</h6>
                     </div>
                     <div class="table-responsive">
                         <table class="table table-striped table-bordered dataTable dtr-inline text-center">
@@ -513,7 +556,65 @@
         // مقادیر مربوط به SMS‌ها
         var sms_dates = {!! json_encode($sms_dates) !!};
         var sms_counts = {!! json_encode($sms_counts) !!};
+        document.addEventListener('DOMContentLoaded', function () {
+            var ctx = document.getElementById('bar_chart_user_visits3').getContext('2d');
 
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: @json($labels10),  // تاریخ‌ها به عنوان برچسب محور X
+                    datasets: [{
+                        label: 'تعداد بازدیدها',
+                        backgroundColor: '#007bff', // رنگ پس‌زمینه
+                        data: @json($datasets10),  // تعداد بازدیدها به عنوان داده‌های محور Y
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    legend: {
+                        display: false
+                    },
+                    scales: {
+                        x: {
+                            barPercentage: 0.3,
+                            ticks: {
+                                fontSize: 15,
+                                fontColor: '#999'
+                            },
+                            grid: {
+                                display: false
+                            }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'تعداد',
+                                fontSize: 18
+                            },
+                            ticks: {
+                                fontSize: 15,
+                                fontColor: '#999',
+                                callback: function (value) {
+                                    return value.toLocaleString('fa-IR');
+                                }
+                            },
+                            grid: {
+                                color: '#e8e8e8'
+                            }
+                        }
+                    },
+                    tooltips: {
+                        callbacks: {
+                            label: function (tooltipItem, data) {
+                                var value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+                                return value.toLocaleString('fa-IR') + ' بازدید';
+                            }
+                        }
+                    }
+                }
+            });
+        });
         $(document).ready(function () {
             if ($('#bar_chart_product_inventory').length) {
                 var ctx = document.getElementById("bar_chart_product_inventory").getContext('2d');

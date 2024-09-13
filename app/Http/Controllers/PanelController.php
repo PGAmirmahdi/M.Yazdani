@@ -6,6 +6,7 @@ use App\Models\Inventory;
 use App\Models\Invoice;
 use App\Models\JobHistory;
 use App\Models\Role;
+use App\Models\SiteVisit;
 use App\Models\Sms;
 use App\Models\User;
 use App\Models\UserVisit;
@@ -392,6 +393,19 @@ class PanelController extends Controller
             $diffInDays = $toDate->diffInDays($fromDate);
             $totalDaysWorked += $diffInDays;
         }
+        // دریافت بازدیدهای سایت
+        $sitevisits = SiteVisit::selectRaw('DATE(created_at) as date, COUNT(*) as count')
+            ->groupBy('date')
+            ->orderBy('date')
+            ->get();
+
+        // آماده‌سازی داده‌ها برای نمودار
+        $labels10 = $sitevisits->map(function ($visit) {
+            return Jalalian::fromDateTime($visit->date)->format('Y-m-d');
+        })->toArray();
+        $datasets10 = $sitevisits->pluck('count')->toArray();
+        $totalVisits10 = $datasets10 ? array_sum($datasets10) : 0;
+        $sitevisits2 = SiteVisit::all();
         return view('panel.index', [
             'labels' => $labels,
             'datasets' => $datasets,
@@ -401,7 +415,7 @@ class PanelController extends Controller
             'orderCounts' => $orderCounts,
             'customerNames' => $customerNames,
             'orderCounts2' => $orderCounts2,
-        ], compact('invoices', 'factors', 'factors_monthly', 'userVisits', 'totalVisits', 'users', 'sms_dates', 'sms_counts', 'totalSmsSent','users2','inventories','productNames', 'productCounts','jobHistories','totalDaysWorked'));
+        ], compact('invoices', 'factors', 'factors_monthly', 'userVisits', 'totalVisits', 'users', 'sms_dates', 'sms_counts', 'totalSmsSent','users2','inventories','productNames', 'productCounts','jobHistories','totalDaysWorked','labels10', 'datasets10', 'totalVisits10','sitevisits2'));
     }
         public function readNotification($notification = null)
     {
