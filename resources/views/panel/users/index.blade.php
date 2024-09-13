@@ -21,6 +21,7 @@
                         <th>نام خانوادگی</th>
                         <th>شماره موبایل</th>
                         <th>نقش</th>
+                        <th>عکس کاربر</th>
                         <th>تاریخ ایجاد</th>
                         @can('users-edit')
                             <th>ویرایش</th>
@@ -38,6 +39,11 @@
                             <td>{{ $user->family }}</td>
                             <td>{{ $user->phone }}</td>
                             <td>{{ $user->role->label }}</td>
+                            <td>@if($user->profile)
+                                    <a href="{{ route('example.file.show', ['filename' => basename($example->file)]) }}"><img src="{{ route('example.file.show', ['filename' => basename($example->file)]) }}" alt="Profile"></a>
+                                @else
+                                    عکس پروفایل ندارد
+                            @endif</td>
                             <td>{{ verta($user->created_at)->format('H:i - Y/m/d') }}</td>
                             @can('users-edit')
                                 <td>

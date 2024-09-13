@@ -78,7 +78,13 @@ use Symfony\Component\HttpFoundation\Response;
 |
 */
 Route::resource('/', LandingController::class);
-Route::get('/file/{filename}', [LandingController::class, 'showFile'])->name('file.show');
+Route::get('/file/show/{filename}', [LandingController::class, 'showFile'])->name('file.show');
+Route::get('/file/resume/{filename}', [LandingController::class, 'resumeFile'])->name('res.file.show');
+Route::get('/file/example/{filename}', [LandingController::class, 'exampleFile'])->name('exa.file.show');
+Route::get('/file/skill/{filename}', [LandingController::class, 'skillFile'])->name('ski.file.show');
+Route::get('/file/favorite/{filename}', [LandingController::class, 'favoriteFile'])->name('fav.file.show');
+Route::get('/file/user/{filename}', [LandingController::class, 'userFile'])->name('us.file.show');
+
 Route::get('/log-in', function () {
     if (Auth::check()) {
         return redirect()->to('/panel');
