@@ -14,6 +14,7 @@
     <meta name="keywords"
           content="تدوین, resume, editor, profile, personal page,رزومه, فتوشاپ ,Premier, Inshot, Capcut, Photoshop, creative, design">
     <meta name="author" content="Mohadesseh Yazdani, pgamirmahdi@gmail.com">
+    <meta name="google-site-verification" content="v_S1GDlfemB2nvRvLj-N4uwVRxrrxJlMJi-_i4EnaHo" />
     <meta name="copyright" content="امیرمهدی اسدی | محدثه یزدانی">
     <meta name="designer" content="امیرمهدی اسدی"/>
     <meta name="owner" content="امیرمهدی اسدی | محدثه یزدانی"/>
@@ -48,6 +49,7 @@
     <link rel="stylesheet" type="text/css" href="{{asset('assets/landing/css/plugins.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('assets/landing/css/main.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('assets/landing/css/font.css')}}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- Template Styles End -->
 </head>
 
@@ -76,7 +78,7 @@
                             <i class="ph-bold ph-house-simple"></i>
                         </a>
                     @else
-                        <a class="menu__link btn" href="{{route('log-in')}}">
+                        <a class="menu__link btn" href="{{route('login')}}">
                             <span class="menu__caption">ورود</span>
                             <i class="ph-bold ph-house-simple"></i>
                         </a>
@@ -117,11 +119,11 @@
         <button id="color-switcher" class="color-switcher header__switcher btn" type="button" role="switch"
                 aria-label="light/dark mode" aria-checked="true"></button>
         @if(isset($resume) && is_iterable($resume))
-        @foreach($resume as $resume7) <a id="notify-trigger" class="header__trigger btn"
-           href="mailto:@if($resume7->email){{$resume7->email}} @else pgamirmahdi@gmail.com @endif">
-            <span class="trigger__caption">ارتباط با من</span>
-            <i class="ph-bold ph-chat-dots"></i>
-        </a>@endforeach @endif
+            @foreach($resume as $resume7) <a id="notify-trigger" class="header__trigger btn"
+                                             href="mailto:@if($resume7->email){{$resume7->email}} @else pgamirmahdi@gmail.com @endif">
+                <span class="trigger__caption">ارتباط با من</span>
+                <i class="ph-bold ph-chat-dots"></i>
+            </a>@endforeach @endif
     </div>
     <!-- Header Controls End -->
 
@@ -190,11 +192,11 @@
             <h6>
                 <small class="top"> شهر من:</small>
                 @foreach($resume as $resume5)
-                @if(isset($resume5->city))
-                    {{$resume5->city}}
-                @else
-                    نامشخص
-                @endif
+                    @if(isset($resume5->city))
+                        {{$resume5->city}}
+                    @else
+                        نامشخص
+                    @endif
                 @endforeach
             </h6>
         </div>
@@ -203,35 +205,44 @@
             <div class="avatar__socials">
                 <ul class="socials-square d-flex justify-content-between">
                     @if(isset($resume) && is_iterable($resume))
-                    @foreach($resume as $resume5)
-                    @if(($resume5->instagram))
-                        <li class="socials-square__item">
-                            <a class="socials-square__link btn" href="https://instagram.com/{{ $resume5->instagram }}"
-                               target="_blank"><i
-                                    class="ph-bold ph-instagram-logo"></i></a>
-                        </li>
-                    @endif
-                    @if($resume5->telegram)
-                        <li class="socials-square__item">
-                            <a class="socials-square__link btn" href="https://t.me/{{ $resume5->telegram }}"
-                               target="_blank"><i class="fa fa-telegram text-info"></i></a>
-                        </li>
-                    @endif
-                    @if($resume5->phone)
-                        <li class="socials-square__item">
-                            <a class="socials-square__link btn" href="https://wa.me/{{ $resume5->phone }}"
-                               target="_blank"><i class="fa fa-whatsapp text-success"></i></a>
-                        </li>
-                    @endif
+                        @foreach($resume as $resume5)
+                            @if(($resume5->instagram))
+                                <li class="socials-square__item">
+                                    <a class="socials-square__link btn" href="https://instagram.com/{{ $resume5->instagram }}"
+                                       target="_blank"><i
+                                            class="ph-bold ph-instagram-logo"></i></a>
+                                </li>
+                            @endif
+                            @if($resume5->telegram)
+                                <li class="socials-square__item">
+                                    <a class="socials-square__link btn" href="https://t.me/{{ $resume5->telegram }}"
+                                       target="_blank"><i
+                                            class="ph-bold ph-telegram-logo"></i></a>
+                                </li>
+                            @endif
+                            @if($resume5->phone)
+                                <li class="socials-square__item">
+                                    <a class="socials-square__link btn" href="https://wa.me/{{ $resume5->phone }}"
+                                       target="_blank"><i
+                                            class="ph-bold ph-whatsapp-logo"></i></a>
+                                </li>
+                            @endif
                         @endforeach
                     @endif
                 </ul>
             </div>
             <div class="avatar__btnholder">
-                <a class="btn btn-default btn-fullwidth btn-hover btn-hover-accent mt-3" href="#contact"
-                   target="_blank">
-                    <span class="btn-caption">پیام بگذارید!</span>
-                </a>
+                @if(\Illuminate\Support\Facades\Auth::check())
+                    <a class="btn btn-default btn-fullwidth btn-hover btn-hover-accent mt-3" href="{{route('panel')}}"
+                       target="_blank">
+                        <span class="btn-caption">پنل کاربری</span>
+                    </a>
+                @else
+                    <a class="btn btn-default btn-fullwidth btn-hover btn-hover-accent mt-3" href="#contact"
+                       target="_blank">
+                        <span class="btn-caption">پیام بگذارید!</span>
+                    </a>
+                @endif
             </div>
         </div>
     </div>
@@ -266,19 +277,19 @@
                         <i class="ph-bold ph-squares-four"></i>
                     </a>
                     @if(isset($resume) && is_iterable($resume))
-                    @foreach($resume as $resume6)
-                    @if($resume6->file)
-                        <a class="btn mobile-vertical btn-default btn-hover btn-hover-outline-mobile animate-headline"
-                           href="{{ route('res.file.show', ['filename' => basename($resume6->file)]) }}">
-                            <span class="btn-caption">دانلود رزومه</span>
-                            <i class="ph-bold ph-download-simple"></i>
-                        </a>
-                    @else
-                        <p class="btn mobile-vertical btn-default btn-hover btn-hover-outline-mobile animate-headline">
-                            رزومه موجود نیست</p>
+                        @foreach($resume as $resume6)
+                            @if($resume6->file)
+                                <a class="btn mobile-vertical btn-default btn-hover btn-hover-outline-mobile animate-headline"
+                                   href="{{ route('res.file.show', ['filename' => basename($resume6->file)]) }}">
+                                    <span class="btn-caption">دانلود رزومه</span>
+                                    <i class="ph-bold ph-download-simple"></i>
+                                </a>
+                            @else
+                                <p class="btn mobile-vertical btn-default btn-hover btn-hover-outline-mobile animate-headline">
+                                    رزومه موجود نیست</p>
+                            @endif
+                        @endforeach
                     @endif
-                    @endforeach
-                        @endif
                 </div>
             </div>
             <!-- پایان عنوان -->
@@ -337,68 +348,68 @@
                 <div class="container-fluid px-0 inner__gallery">
                     <div class="row gx-0 my-gallery" itemscope itemtype="http://schema.org/ImageGallery">
                         @if(isset($example) && is_iterable($example))
-                        @foreach($example as $examplee)
-                            <!-- آیتم تک گالری کارها شروع -->
-                            <figure class="col-12 col-md-6 gallery__item grid-item animate-card-2"
-                                    itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-                                @if($examplee->file)
-                                    @php
-                                        $fileExtension = pathinfo($examplee->file, PATHINFO_EXTENSION);
-                                    @endphp
+                            @foreach($example as $examplee)
+                                <!-- آیتم تک گالری کارها شروع -->
+                                <figure class="col-12 col-md-6 gallery__item grid-item animate-card-2"
+                                        itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+                                    @if($examplee->file)
+                                        @php
+                                            $fileExtension = pathinfo($examplee->file, PATHINFO_EXTENSION);
+                                        @endphp
 
-                                    @if(in_array($fileExtension, ['mp4', 'avi', 'mov']))
-                                        {{-- بررسی فرمت‌های ویدیو --}}
-                                        <a href="{{ route('exa.file.show', ['filename' => basename($examplee->file)]) }}"
-                                           data-image="{{ route('exa.file.show', ['filename' => basename($examplee->file)]) }}"
-                                           class="gallery__link"
-                                           itemprop="contentUrl" data-size="1400x1400">
-                                            <video width="320" height="240" controls>
-                                                <source
+                                        @if(in_array($fileExtension, ['mp4', 'avi', 'mov']))
+                                            {{-- بررسی فرمت‌های ویدیو --}}
+                                            <a href="{{ route('exa.file.show', ['filename' => basename($examplee->file)]) }}"
+                                               data-image="{{ route('exa.file.show', ['filename' => basename($examplee->file)]) }}"
+                                               class="gallery__link"
+                                               itemprop="contentUrl" data-size="1400x1400">
+                                                <video width="320" height="240" controls>
+                                                    <source
+                                                        src="{{ route('exa.file.show', ['filename' => basename($examplee->file)]) }}"
+                                                        type="video/{{ $fileExtension }}">
+                                                    مرورگر شما از پخش ویدیو پشتیبانی نمی‌کند.
+                                                </video>
+                                            </a>
+                                        @else
+                                            <a href="{{ route('exa.file.show', ['filename' => basename($examplee->file)]) }}"
+                                               data-image="{{ route('exa.file.show', ['filename' => basename($examplee->file)]) }}"
+                                               class="gallery__link"
+                                               itemprop="contentUrl" data-size="1400x1400">
+                                                <img
                                                     src="{{ route('exa.file.show', ['filename' => basename($examplee->file)]) }}"
-                                                    type="video/{{ $fileExtension }}">
-                                                مرورگر شما از پخش ویدیو پشتیبانی نمی‌کند.
-                                            </video>
-                                        </a>
+                                                    class="gallery__image"
+                                                    itemprop="thumbnail" alt="توضیحات تصویر">
+                                            </a>
+                                        @endif
                                     @else
-                                        <a href="{{ route('exa.file.show', ['filename' => basename($examplee->file)]) }}"
-                                           data-image="{{ route('exa.file.show', ['filename' => basename($examplee->file)]) }}"
+                                        <a href="https://mixdesign.club/themeforest/braxton/img/works/800_w03-thumb.webp"
+                                           data-image="https://mixdesign.club/themeforest/braxton/img/works/800_w03-thumb.webp"
                                            class="gallery__link"
                                            itemprop="contentUrl" data-size="1400x1400">
                                             <img
-                                                src="{{ route('exa.file.show', ['filename' => basename($examplee->file)]) }}"
+                                                src="https://mixdesign.club/themeforest/braxton/img/works/800_w03-thumb.webp"
                                                 class="gallery__image"
                                                 itemprop="thumbnail" alt="توضیحات تصویر">
                                         </a>
                                     @endif
-                                @else
-                                    <a href="https://mixdesign.club/themeforest/braxton/img/works/800_w03-thumb.webp"
-                                       data-image="https://mixdesign.club/themeforest/braxton/img/works/800_w03-thumb.webp"
-                                       class="gallery__link"
-                                       itemprop="contentUrl" data-size="1400x1400">
-                                        <img
-                                            src="https://mixdesign.club/themeforest/braxton/img/works/800_w03-thumb.webp"
-                                            class="gallery__image"
-                                            itemprop="thumbnail" alt="توضیحات تصویر">
-                                    </a>
-                                @endif
-                                <figcaption class="gallery__descr" itemprop="caption description">
-                                    <h5>{{ $examplee->title }}</h5>
-                                    <div class="card__tags d-flex flex-wrap">
-                                        @php
-                                            $properties = json_decode($examplee->properties, true);
-                                        @endphp
-                                        @foreach($properties as $property)
-                                            <span class="rounded-tag opposite">{{$property}}</span>
-                                        @endforeach
+                                    <figcaption class="gallery__descr" itemprop="caption description">
+                                        <h5>{{ $examplee->title }}</h5>
+                                        <div class="card__tags d-flex flex-wrap">
+                                            @php
+                                                $properties = json_decode($examplee->properties, true);
+                                            @endphp
+                                            @foreach($properties as $property)
+                                                <span class="rounded-tag opposite">{{$property}}</span>
+                                            @endforeach
 
-                                    </div>
-                                    <p class="small">{{ $examplee->description}}
-                                    </p>
-                                </figcaption>
-                            </figure>
-                            <!-- آیتم تک گالری کارها پایان -->
-                        @endforeach
-                            @endif
+                                        </div>
+                                        <p class="small">{{ $examplee->description}}
+                                        </p>
+                                    </figcaption>
+                                </figure>
+                                <!-- آیتم تک گالری کارها پایان -->
+                            @endforeach
+                        @endif
                     </div>
                 </div>
             </div>
@@ -465,21 +476,21 @@
                         <!-- توضیحات درباره من شروع -->
                         <div class="col-12 col-xl-8 grid-item about-descr">
                             @foreach($resume as $resume8)
-                            <p class="about-descr__text animate-in-up">
-                                {{$resume8->description}}
-                            </p>
-                            <div class="btn-group about-descr__btnholder animate-in-up">
-                                @if($resume8->file)
-                                    <a class="btn mobile-vertical btn-default btn-hover btn-hover-accent"
-                                       href="{{ route('res.file.show', ['filename' => basename($resume8->file)]) }}">
-                                        <span class="btn-caption">دانلود رزومه</span>
-                                        <i class="ph-bold ph-download-simple"></i>
-                                    </a>
-                                @else
-                                    <p class="btn mobile-vertical btn-default btn-hover btn-hover-outline-mobile animate-headline">
-                                        رزومه موجود نیست</p>
-                                @endif
-                            </div>
+                                <p class="about-descr__text animate-in-up">
+                                    {{$resume8->description}}
+                                </p>
+                                <div class="btn-group about-descr__btnholder animate-in-up">
+                                    @if($resume8->file)
+                                        <a class="btn mobile-vertical btn-default btn-hover btn-hover-accent"
+                                           href="{{ route('res.file.show', ['filename' => basename($resume8->file)]) }}">
+                                            <span class="btn-caption">دانلود رزومه</span>
+                                            <i class="ph-bold ph-download-simple"></i>
+                                        </a>
+                                    @else
+                                        <p class="btn mobile-vertical btn-default btn-hover btn-hover-outline-mobile animate-headline">
+                                            رزومه موجود نیست</p>
+                                    @endif
+                                </div>
                         </div>
                         @endforeach
                         <!-- توضیحات درباره من پایان -->
@@ -502,12 +513,12 @@
                                 <h6>
                                     <small class="top">ایمیل</small>
                                     @foreach($resume as $resume1)
-                                    <a class="text-link-bold"
-                                       href="mailto:@if($resume1->email){{$resume1->email}} @else pgamirmahdi@gmail.com @endif">@if($resume1->email)
-                                            {{$resume1->email}}
-                                        @else
-                                            pgamirmahdi@gmail.com
-                                        @endif</a>
+                                        <a class="text-link-bold"
+                                           href="mailto:@if($resume1->email){{$resume1->email}} @else pgamirmahdi@gmail.com @endif">@if($resume1->email)
+                                                {{$resume1->email}}
+                                            @else
+                                                pgamirmahdi@gmail.com
+                                            @endif</a>
                                     @endforeach
                                 </h6>
                             </div>
@@ -515,8 +526,8 @@
                                 <h6>
                                     <small class="top">شهر</small>
                                     @foreach($resume as $resume4)
-                                    <a class="text-link-bold" href="#"
-                                       target="_blank">{{$resume4->city}}</a> @endforeach
+                                        <a class="text-link-bold" href="#"
+                                           target="_blank">{{$resume4->city}}</a> @endforeach
                                 </h6>
                             </div>
                         </div>
@@ -702,17 +713,17 @@
                 <!-- Tools List Start -->
                 <div class="tools-cards d-flex justify-content-start flex-wrap">
                     @if(isset($favorites)&& is_iterable($favorites))
-                    @foreach($favorites as $favorite)
-                        <!-- tools simgle item -->
-                        <div class="tools-cards__item d-flex grid-item-s animate-card-5">
-                            <div class="tools-cards__card">
-                                <img class="tools-cards__icon animate-in-up"
-                                     src="{{ route('fav.file.show', ['filename' => basename($favorite->picture)]) }}"
-                                     alt="Tools Icon">
-                                <h6 class="tools-cards__caption animate-in-up">{{$favorite->title}}</h6>
+                        @foreach($favorites as $favorite)
+                            <!-- tools simgle item -->
+                            <div class="tools-cards__item d-flex grid-item-s animate-card-5">
+                                <div class="tools-cards__card">
+                                    <img class="tools-cards__icon animate-in-up"
+                                         src="{{ route('fav.file.show', ['filename' => basename($favorite->picture)]) }}"
+                                         alt="Tools Icon">
+                                    <h6 class="tools-cards__caption animate-in-up">{{$favorite->title}}</h6>
+                                </div>
                             </div>
-                        </div>
-                    @endforeach
+                        @endforeach
                     @endif
                     <!-- Tools List End -->
                 </div>
@@ -856,39 +867,74 @@
                         <!-- Reply Messages End -->
 
                         <!-- Contact Form Start -->
-                        <form class="form contact-form" id="contact-form" action="{{ route('calls.store') }}"
-                              method="post">
+                        <form class="form contact-form" action="{{ route('landing.store') }}" method="post">
+                            @csrf
                             <!-- Hidden Required Fields -->
-                            {{--                        <input type="hidden" name="project_name" value="Starter Template">--}}
-                            {{--                        <input type="hidden" name="admin_email" value="support@mixdesign.club">--}}
-                            {{--                        <input type="hidden" name="form_subject" value="پیام فرم تماس">--}}
+                            {{-- <input type="hidden" name="project_name" value="Starter Template"> --}}
+                            {{-- <input type="hidden" name="admin_email" value="support@mixdesign.club"> --}}
+                            {{-- <input type="hidden" name="form_subject" value="پیام فرم تماس"> --}}
                             <!-- END Hidden Required Fields-->
+
                             <div class="container-fluid p-0">
                                 <div class="row gx-0">
+                                    <!-- Name input -->
                                     <div class="col-12 col-md-6 form__item animate-in-up">
-                                        <input type="text" name="name" placeholder="نام شما*" required>
+                                        <input type="text" name="name" placeholder="نام شما*" required value="{{ old('name') }}">
+                                        @error('name')
+                                        <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                        @enderror
                                     </div>
+
+                                    <!-- Family name input -->
                                     <div class="col-12 col-md-6 form__item animate-in-up">
-                                        <input type="text" name="family" placeholder="نام خانوادگی شما*" required>
+                                        <input type="text" name="family" placeholder="نام خانوادگی شما*" required value="{{ old('family') }}">
+                                        @error('family')
+                                        <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                        @enderror
                                     </div>
+
+                                    <!-- Email input -->
                                     <div class="col-12 col-md-6 form__item animate-in-up">
-                                        <input type="email" name="email" placeholder="ایمیل*" required>
+                                        <input type="email" name="email" placeholder="ایمیل*" required value="{{ old('email') }}">
+                                        @error('email')
+                                        <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                        @enderror
                                     </div>
+
+                                    <!-- Phone number input -->
                                     <div class="col-12 col-md-6 form__item animate-in-up">
-                                        <input type="tel" name="number" placeholder="شماره تلفن*" required>
+                                        <input type="tel" name="number" placeholder="شماره تلفن*" required value="{{ old('number') }}">
+                                        @error('number')
+                                        <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                        @enderror
                                     </div>
+
+                                    <!-- Description textarea -->
                                     <div class="col-12 form__item animate-in-up">
-                                        <textarea name="description" placeholder="چند کلمه از شما*" required></textarea>
+                                        <textarea name="description" placeholder="چند کلمه از شما*" required>{{ old('description') }}</textarea>
+                                        @error('description')
+                                        <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                        @enderror
                                     </div>
+
+                                    <!-- Submit button -->
                                     <div class="col-12 form__item animate-in-up">
                                         <button class="btn btn-default btn-hover btn-hover-accent" type="submit">
                                             <span class="btn-caption">ارسال پیام</span>
                                             <i class="ph-bold ph-paper-plane-tilt"></i>
                                         </button>
+
+                                        <!-- Success message -->
+                                        @if(session('success'))
+                                            <div class="alert alert-success">
+                                                {{ session('success') }}
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
                         </form>
+
                         <!-- Contact Form End -->
 
                     </div>
@@ -901,36 +947,31 @@
                         <!-- socials item -->
                         <!-- socials item -->
                         <div class="socials-cards__item d-flex grid-item-s animate-card-5">
-                            <div class="socials-cards__card">
-                                <i class="ph-bold ph-behance-logo"></i>
-                                <a class="socials-cards__link" href="https://www.behance.net/" target="_blank"></a>
-                            </div>
-                        </div>
-                        <!-- socials item -->
-                        <div class="socials-cards__item d-flex grid-item-s animate-card-5">
                             @if(isset($resume) && is_iterable($resume))
-                            @foreach($resume as $resume2)
-                            @if($resume2->instagram)
-                                <div class="socials-cards__card">
-                                    <i class="ph-bold ph-instagram-logo"></i>
-                                    <a class="socials-cards__link"
-                                       href="https://www.instagram.com/{{ $resume2->instagram }}" target="_blank"></a>
-                                </div>
-                            @endif
-                            @if($resume2->telegram)
-                                <div class="socials-cards__card">
-                                    <i class="fa fa-telegram text-info"></i>
-                                    <a class="socials-cards__link" href="https://t.me/{{ $resume2->telegram }}"
-                                       target="_blank"></a>
-                                </div>
-                            @endif
-                            @if($resume2->phone)
-                                <div class="socials-cards__card">
-                                    <i class="fa fa-whatsapp text-success"></i>
-                                    <a class="socials-cards__link" href="https://wa.me/{{ $resume2->phone }}"
-                                       target="_blank"></a>
-                                </div>
-                            @endif
+                                @foreach($resume as $resume2)
+                                    @if($resume2->instagram)
+                                        <div class="socials-cards__card m-2">
+                                            <i class="ph-bold ph-instagram-logo"></i>
+                                            <a class="socials-cards__link"
+                                               href="https://www.instagram.com/{{ $resume2->instagram }}" target="_blank"></a>
+                                        </div>
+                                    @endif
+                                    @if($resume2->telegram)
+                                        <div class="socials-cards__card m-2">
+                                            <i
+                                                class="ph-bold ph-telegram-logo"></i>
+                                            <a class="socials-cards__link" href="https://t.me/{{ $resume2->telegram }}"
+                                               target="_blank"></a>
+                                        </div>
+                                    @endif
+                                    @if($resume2->phone)
+                                        <div class="socials-cards__card m-2">
+                                            <i
+                                                class="ph-bold ph-whatsapp-logo"></i>
+                                            <a class="socials-cards__link" href="https://wa.me/{{ $resume2->phone }}"
+                                               target="_blank"></a>
+                                        </div>
+                                    @endif
                                 @endforeach
                             @endif
                         </div>
@@ -952,38 +993,38 @@
 
                 <!-- Content Block - Contact Data Start -->
                 @if(isset($resume) && is_iterable($resume))
-                @foreach($resume as $resume3)
-                <div class="content__block">
-                    <div class="container-fluid p-0 contact-lines animate-in-up">
-                        <div class="row g-0 contact-lines__item">
-                            <!-- data item -->
-                            <div class="col-12 col-md-4 contact-lines__data">
-                                <p class="contact-lines__title animate-in-up">شهر</p>
-                                <p class="contact-lines__text animate-in-up">
-                                    <a class="text-link-bold" href="https://maps.app.goo.gl/xMJXTEUeHkv6kYRQ6"
-                                       target="_blank">{{$resume3->city}}</a>
-                                </p>
-                            </div>
-                            <!-- data item -->
-                            <div class="col-12 col-md-4 contact-lines__data">
-                                <p class="contact-lines__title animate-in-up">تلفن</p>
-                                <p class="contact-lines__text animate-in-up">
-                                    <a class="text-link-bold" href="tel:+12127089400">{{$resume3->phone}}</a>
-                                </p>
-                            </div>
-                            <!-- data item -->
-                            <div class="col-12 col-md-4 contact-lines__data">
-                                <p class="contact-lines__title animate-in-up">ایمیل</p>
-                                <p class="contact-lines__text animate-in-up">
-                                    <a class="text-link-bold"
-                                       href="mailto:{{ $resume3->email ?? 'pgamirmahdi@gmail.com' }}">
-                                        {{ $resume3->email ?? 'pgamirmahdi@gmail.com' }}
-                                    </a>
-                                </p>
+                    @foreach($resume as $resume3)
+                        <div class="content__block">
+                            <div class="container-fluid p-0 contact-lines animate-in-up">
+                                <div class="row g-0 contact-lines__item">
+                                    <!-- data item -->
+                                    <div class="col-12 col-md-4 contact-lines__data">
+                                        <p class="contact-lines__title animate-in-up">شهر</p>
+                                        <p class="contact-lines__text animate-in-up">
+                                            <a class="text-link-bold" href="https://maps.app.goo.gl/xMJXTEUeHkv6kYRQ6"
+                                               target="_blank">{{$resume3->city}}</a>
+                                        </p>
+                                    </div>
+                                    <!-- data item -->
+                                    <div class="col-12 col-md-4 contact-lines__data">
+                                        <p class="contact-lines__title animate-in-up">تلفن</p>
+                                        <p class="contact-lines__text animate-in-up">
+                                            <a class="text-link-bold" href="tel:+12127089400">{{$resume3->phone}}</a>
+                                        </p>
+                                    </div>
+                                    <!-- data item -->
+                                    <div class="col-12 col-md-4 contact-lines__data">
+                                        <p class="contact-lines__title animate-in-up">ایمیل</p>
+                                        <p class="contact-lines__text animate-in-up">
+                                            <a class="text-link-bold"
+                                               href="mailto:{{ $resume3->email ?? 'pgamirmahdi@gmail.com' }}">
+                                                {{ $resume3->email ?? 'pgamirmahdi@gmail.com' }}
+                                            </a>
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
                     @endforeach
                 @endif
                 <!-- Content Block - Contact Data End -->
@@ -1060,63 +1101,63 @@
 
     </div>
 </div>
-    <!-- Load Scripts Start -->
-    <script src="{{asset('assets/landing/js/libs.min.js')}}"></script>
-    <script>
-        const randomX = random(-400, 400);
-        const randomY = random(-200, 200);
-        const randomDelay = random(0, 50);
-        const randomTime = random(20, 40);
-        const randomTime2 = random(5, 12);
-        const randomAngle = random(-30, 150);
+<!-- Load Scripts Start -->
+<script src="{{asset('assets/landing/js/libs.min.js')}}"></script>
+<script>
+    const randomX = random(-400, 400);
+    const randomY = random(-200, 200);
+    const randomDelay = random(0, 50);
+    const randomTime = random(20, 40);
+    const randomTime2 = random(5, 12);
+    const randomAngle = random(-30, 150);
 
-        const blurs = gsap.utils.toArray(".blur");
-        blurs.forEach((blur) => {
-            gsap.set(blur, {
-                x: randomX(-1),
-                y: randomX(1),
-                rotation: randomAngle(-1)
-            });
-
-            moveX(blur, 1);
-            moveY(blur, -1);
-            rotate(blur, 1);
+    const blurs = gsap.utils.toArray(".blur");
+    blurs.forEach((blur) => {
+        gsap.set(blur, {
+            x: randomX(-1),
+            y: randomX(1),
+            rotation: randomAngle(-1)
         });
 
-        function rotate(target, direction) {
-            gsap.to(target, randomTime2(), {
-                rotation: randomAngle(direction),
-                ease: Sine.easeInOut,
-                onComplete: rotate,
-                onCompleteParams: [target, direction * -1]
-            });
-        }
+        moveX(blur, 1);
+        moveY(blur, -1);
+        rotate(blur, 1);
+    });
 
-        function moveX(target, direction) {
-            gsap.to(target, randomTime(), {
-                x: randomX(direction),
-                ease: Sine.easeInOut,
-                onComplete: moveX,
-                onCompleteParams: [target, direction * -1]
-            });
-        }
+    function rotate(target, direction) {
+        gsap.to(target, randomTime2(), {
+            rotation: randomAngle(direction),
+            ease: Sine.easeInOut,
+            onComplete: rotate,
+            onCompleteParams: [target, direction * -1]
+        });
+    }
 
-        function moveY(target, direction) {
-            gsap.to(target, randomTime(), {
-                y: randomY(direction),
-                ease: Sine.easeInOut,
-                onComplete: moveY,
-                onCompleteParams: [target, direction * -1]
-            });
-        }
+    function moveX(target, direction) {
+        gsap.to(target, randomTime(), {
+            x: randomX(direction),
+            ease: Sine.easeInOut,
+            onComplete: moveX,
+            onCompleteParams: [target, direction * -1]
+        });
+    }
 
-        function random(min, max) {
-            const delta = max - min;
-            return (direction = 1) => (min + delta * Math.random()) * direction;
-        }
-    </script>
-    <script src="{{asset('assets/landing/js/app.js')}}"></script>
-    <script src="{{asset('assets/landing/js/gallery-init.js')}}"></script>
+    function moveY(target, direction) {
+        gsap.to(target, randomTime(), {
+            y: randomY(direction),
+            ease: Sine.easeInOut,
+            onComplete: moveY,
+            onCompleteParams: [target, direction * -1]
+        });
+    }
+
+    function random(min, max) {
+        const delta = max - min;
+        return (direction = 1) => (min + delta * Math.random()) * direction;
+    }
+</script>
+<script src="{{asset('assets/landing/js/app.js')}}"></script>
+<script src="{{asset('assets/landing/js/gallery-init.js')}}"></script>
 
 </body>
 

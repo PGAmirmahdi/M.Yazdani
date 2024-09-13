@@ -75,27 +75,27 @@
 <script src="{{ mix('/js/app.js') }}"></script>
 
 @yield('scripts')
-<script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+{{--<script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>--}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/laravel-echo/1.11.2/echo.iife.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 
 <script src="https://www.gstatic.com/firebasejs/7.23.0/firebase.js"></script>
-<script>
+{{--<script>--}}
 
-    // Enable pusher logging - don't include this in production
-    Pusher.logToConsole = true;
+{{--    // Enable pusher logging - don't include this in production--}}
+{{--    Pusher.logToConsole = true;--}}
 
-    var pusher = new Pusher('ac8ae105709d7299a673', {
-        cluster: 'ap1'
-    });
+{{--    var pusher = new Pusher('ac8ae105709d7299a673', {--}}
+{{--        cluster: 'ap1'--}}
+{{--    });--}}
 
-    var channel = pusher.subscribe('my-channel');
-    channel.bind('my-event', function(data) {
-        alert(JSON.stringify(data));
-    });
-</script>
+{{--    var channel = pusher.subscribe('my-channel');--}}
+{{--    channel.bind('my-event', function(data) {--}}
+{{--        alert(JSON.stringify(data));--}}
+{{--    });--}}
+{{--</script>--}}
 <script>
     {{-- ajax setup --}}
         $.ajaxSetup({

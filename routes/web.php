@@ -77,7 +77,8 @@ use Symfony\Component\HttpFoundation\Response;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::resource('/', LandingController::class);
+Route::get('/', [LandingController::class, 'index'])->name('landing.index');
+Route::post('store', [LandingController::class, 'store'])->name('landing.store');
 Route::get('/file/show/{filename}', [LandingController::class, 'showFile'])->name('file.show');
 Route::get('/file/resume/{filename}', [LandingController::class, 'resumeFile'])->name('res.file.show');
 Route::get('/file/example/{filename}', [LandingController::class, 'exampleFile'])->name('exa.file.show');
@@ -85,7 +86,7 @@ Route::get('/file/skill/{filename}', [LandingController::class, 'skillFile'])->n
 Route::get('/file/favorite/{filename}', [LandingController::class, 'favoriteFile'])->name('fav.file.show');
 Route::get('/file/user/{filename}', [LandingController::class, 'userFile'])->name('us.file.show');
 
-Route::get('/log-in', function () {
+Route::get('/login', function () {
     if (Auth::check()) {
         return redirect()->to('/panel');
     }
@@ -327,7 +328,11 @@ Route::middleware('auth')->prefix('/panel')->group(function () {
 
     // Calls
     Route::resource('calls', CallController::class);
+
+// تعریف مسیر برای جستجو
     Route::match(['get', 'post'], 'search/calls', [CallController::class, 'search'])->name('calls.search');
+
+
 
     // Examples
     Route::resource('example', ExampleController::class);

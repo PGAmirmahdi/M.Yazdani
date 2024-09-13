@@ -9,11 +9,13 @@ use App\Models\JobHistory;
 use App\Models\Resume;
 use App\Models\Skill;
 use App\Models\User;
+use App\Models\Call;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Morilog\Jalali\Jalalian;
 use Symfony\Component\HttpFoundation\Response;
+use App\Http\Requests\StoreCallRequest;
 use function React\Promise\all;
 
 class LandingController extends Controller
@@ -56,9 +58,12 @@ class LandingController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreCallRequest $request)
     {
-        //
+        Call::create($request->all());
+
+        // بازگشت به صفحه لیست رکوردها با پیام موفقیت
+        return redirect()->route('landing.index')->with('success', 'پیام با موفقیت ارسال شد.');;
     }
 
     /**
