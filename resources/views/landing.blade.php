@@ -275,8 +275,75 @@
         return (direction = 1) => (min + delta * Math.random()) * direction;
     }
 </script>
+<script>
+    var openPhotoSwipe = function(index) {
+        var pswpElement = document.querySelectorAll('.pswp')[0];
+        var items = [];
+
+        // شناسایی ویدیوها و تصاویر
+        document.querySelectorAll('.my-gallery a').forEach(function(el) {
+            var size = el.getAttribute('data-size').split('x');
+            var itemType = el.getAttribute('data-type');
+
+            if (itemType === 'video') {
+                // ویدیو با استفاده از dash.js
+                items.push({
+                    html: '<video controls autoplay playsinline width="' + size[0] + '" height="' + size[1] + '" id="pswp-video">' +
+                        '<source src="' + el.getAttribute('data-dash-url') + '" type="application/dash+xml">' +
+                        'مرورگر شما از پخش ویدیو پشتیبانی نمی‌کند.' +
+                        '</video>',
+                    w: parseInt(size[0], 10),
+                    h: parseInt(size[1], 10)
+                });
+            } else if (itemType === 'image') {
+                // تصویر عادی
+                items.push({
+                    src: el.getAttribute('data-image-url'),
+                    w: parseInt(size[0], 10),
+                    h: parseInt(size[1], 10)
+                });
+            }
+        });
+
+        var options = {
+            index: index // اسلاید ابتدایی
+        };
+
+        // PhotoSwipe باز کردن
+        var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
+        gallery.listen('gettingData', function(index, item) {
+            if (!item.loaded) {
+                item.loaded = true;
+            }
+        });
+        gallery.listen('afterChange', function() {
+            var videoElement = document.getElementById('pswp-video');
+            if (videoElement) {
+                setupDashForVideo(videoElement);
+            }
+        });
+        gallery.init();
+    };
+
+    // تنظیم dash.js برای ویدیوهای داخل PhotoSwipe
+    function setupDashForVideo(videoElement) {
+        if (videoElement) {
+            var player = dashjs.MediaPlayer().create();
+            player.initialize(videoElement, videoElement.querySelector('source').getAttribute('src'), true);
+        }
+    }
+
+    // رویداد کلیک برای باز کردن PhotoSwipe
+    document.querySelectorAll('.my-gallery a').forEach(function(el, index) {
+        el.addEventListener('click', function(event) {
+            event.preventDefault();
+            openPhotoSwipe(index);
+        });
+    });
+</script>
 <script src="{{asset('assets/landing/js/app.js')}}"></script>
 <script src="{{asset('assets/landing/js/gallery-init.js')}}"></script>
+<script src="https://cdn.dashjs.org/latest/dash.all.min.js"></script>
 
 </body>
 

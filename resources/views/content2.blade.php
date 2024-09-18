@@ -107,10 +107,10 @@
                                        data-image="{{ route('exa.file.show', ['filename' => basename($examplee->file)]) }}"
                                        class="gallery__link"
                                        itemprop="contentUrl" data-size="1400x1400">
-                                        <video width="320" height="240" autoplay muted playsinline loop>
+                                        <video width="fit-content" height="240" loading="lazy" autoplay muted playsinline loop>
                                             <source
                                                 src="{{ route('exa.file.show', ['filename' => basename($examplee->file)]) }}"
-                                                type="video/{{ $fileExtension }}">
+                                                type="video/{{ $fileExtension }}" media="(min-width: 720px)">
                                             مرورگر شما از پخش ویدیو پشتیبانی نمی‌کند.
                                         </video>
                                     </a>
@@ -208,7 +208,7 @@
             <!-- آیتم تک دستاورد -->
             <div class="achievements__item d-flex flex-column grid-item animate-card-3">
                 <div class="achievements__card">
-                    <p class="achievements__number">+{{$resume->count()}}</p>
+                    <p class="achievements__number">+{{$example->count()}}</p>
                     <p class="achievements__descr">پروژه انجام شده</p>
                 </div>
             </div>

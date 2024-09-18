@@ -483,7 +483,7 @@
                             <tr>
                                 <td>{{ ++$key }}</td>
                                 <td>{{ $visit2->ip_address }}</td>
-                                <td>{{ \Morilog\Jalali\Jalalian::fromDateTime($visit2  ->created_at)->format('H:i:s - Y-m-d') }}</td>
+                                <td>{{ \Morilog\Jalali\Jalalian::fromDateTime($visit2  ->created_at)->format('H:i - Y-m-d') }}</td>
                             </tr>
                         @endforeach
                         </tbody>

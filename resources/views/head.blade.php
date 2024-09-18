@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
 
     <!-- Page Title -->
-    <title>محدثه یزدانی</title>
+    <title>{{$name}}</title>
 
 
     <!-- Meta Tags -->
     <meta name="description"
-          content="صفحه رزومه و اطلاعات کاری محدثه یزدانی،تدوینگری با اشتیاق و پر از استعداد،آماده برای تدوین ویدیو های شما!">
+          content="{{$title}}">
     <meta name="keywords"
           content="تدوین, resume, editor, profile, personal page,رزومه, فتوشاپ ,Premier, Inshot, Capcut, Photoshop, creative, design">
     <meta name="author" content="Mohadesseh Yazdani, pgamirmahdi@gmail.com">
@@ -24,12 +24,12 @@
     <meta property="og:title" content="محدثه یزدانی">
     <meta property="og:description"
           content="صفحه رزومه و اطلاعات کاری محدثه یزدانی،تدوینگری با اشتیاق و پر از استعداد،آماده برای تدوین ویدیو های شما!">
-    <meta property="og:site_name" content="محدثه یزدانی">
+    <meta property="og:site_name" content="{{$name}}">
     {{--    <meta property="og:image" content=”{{asset('assets/media/image/screenshots/Screenshot3.png')}}”/>--}}
     <meta property="og:locale" content="fa_IR">
     <meta name="theme-color" content="#0ebfff">
-    <meta property="og:url" content="https://moyazdani.ir">
-    <link rel="canonical" href="https://moyazdani.ir">
+    <meta property="og:url" content="{{$url}}">
+    <link rel="canonical" href="{{$url}}">
     <!-- Viewport Meta-->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">

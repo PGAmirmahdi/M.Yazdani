@@ -396,8 +396,8 @@ class PanelController extends Controller
         // دریافت بازدیدهای سایت
         $sitevisits = SiteVisit::selectRaw('DATE(created_at) as date, COUNT(*) as count')
             ->groupBy('date')
-            ->orderBy('date')
-            ->get();
+            ->orderBy('date', 'DESC')
+            ->paginate(15);
 
         // آماده‌سازی داده‌ها برای نمودار
         $labels10 = $sitevisits->map(function ($visit) {
