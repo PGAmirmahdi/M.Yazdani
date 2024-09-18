@@ -26,7 +26,7 @@ class LandingController extends Controller
     {
         $user = User::where('name', 'محدثه')->first(['name', 'family', 'phone', 'role_id', 'profile','id']);
         $resume = Resume::where('user_id', $user->id)->get();
-        $example = Example::where('user_id', $user->id)->get();
+        $example = Example::where('user_id', $user->id)->paginate(3);
         $customer = Customer::all();
         $favorites = Favorite::where('user_id', $user->id)->get();
         $skills = Skill::where('user_id', $user->id)->get();
