@@ -31,7 +31,7 @@ class LandingController extends Controller
         $customer = Customer::all();
         $favorites = Favorite::where('user_id', $user->id)->get();
         $skills = Skill::where('user_id', $user->id)->get();
-        $jobHistories = JobHistory::all();
+        $jobHistories = JobHistory::where('user_id', $user->id)->get();
         $totalDaysWorked = 0;
         $name='محدثه یزدانی';
         $title="صفحه رزومه و اطلاعات کاری محدثه یزدانی،تدوینگری با اشتیاق و پر از استعداد،آماده برای تدوین ویدیو های شما!";
@@ -61,11 +61,41 @@ class LandingController extends Controller
         $customer = Customer::all();
         $favorites = Favorite::where('user_id', $user->id)->get();
         $skills = Skill::where('user_id', $user->id)->get();
-        $jobHistories = JobHistory::all();
+        $jobHistories = JobHistory::where('user_id', $user->id)->get();
         $totalDaysWorked = 0;
         $name='امیرمهدی اسدی';
         $title="صفحه رزومه و اطلاعات کاری امیرمهدی اسدی،برنامه نویس و توسعه دهنده فول استک با اشتیاق و تلاشگر،آماده برای طراحی و توسعه هرگونه سایت،اپلیکیشن و وب اپلیکیشن های شما!";
         $url='https://moyazdani.ir/AmirmahdiAsadi';
+        foreach ($jobHistories as $jobHistory) {
+            $fromDate = Carbon::parse(Jalalian::fromFormat('Y/m/d', $jobHistory->from_date)->toCarbon())->startOfDay();
+            $toDate = $jobHistory->to_date === 'تا اکنون' ? Carbon::now() : Carbon::parse(Jalalian::fromFormat('Y/m/d', $jobHistory->to_date)->toCarbon())->endOfDay();
+
+            $diffInDays = $toDate->diffInDays($fromDate);
+            $totalDaysWorked += $diffInDays;
+        }
+        // دریافت IP آدرس کاربر
+        $ipAddress = request()->ip();
+
+        // ذخیره‌سازی IP آدرس در دیتابیس
+        SiteVisit::create([
+            'ip_address' => $ipAddress,
+        ]);
+        return view('landing', compact('user', 'resume', 'example', 'customer','totalDaysWorked','skills','jobHistories','favorites','name','title','url','example2'));
+    }
+    public function MohamadReza()
+    {
+        $user = User::where('name', 'محمدرضا')->first(['name', 'family', 'phone', 'role_id', 'profile','id']);
+        $resume = Resume::where('user_id', $user->id)->get();
+        $example = Example::where('user_id', $user->id)->paginate(3);
+        $example2 = Example::where('user_id', $user->id)->get();
+        $customer = Customer::all();
+        $favorites = Favorite::where('user_id', $user->id)->get();
+        $skills = Skill::where('user_id', $user->id)->get();
+        $jobHistories = JobHistory::where('user_id', $user->id)->get();
+        $totalDaysWorked = 0;
+        $name='محمدرضا اکرمی فرد';
+        $title="صفحه رزومه و اطلاعات کاری محمدرضا اکرمی فرد،برنامه نویس و توسعه دهنده اپلیکیشن موبایل با اشتیاق و تلاشگر،آماده برای طراحی و توسعه هرگونه نیاز های شما!";
+        $url='https://moyazdani.ir/MohamadRezAkrami';
         foreach ($jobHistories as $jobHistory) {
             $fromDate = Carbon::parse(Jalalian::fromFormat('Y/m/d', $jobHistory->from_date)->toCarbon())->startOfDay();
             $toDate = $jobHistory->to_date === 'تا اکنون' ? Carbon::now() : Carbon::parse(Jalalian::fromFormat('Y/m/d', $jobHistory->to_date)->toCarbon())->endOfDay();

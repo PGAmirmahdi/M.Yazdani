@@ -79,6 +79,7 @@ use Symfony\Component\HttpFoundation\Response;
 */
 Route::get('/', [LandingController::class, 'index'])->name('landing.index');
 Route::get('AmirmahdiAsadi', [LandingController::class, 'Amirmahdi'])->name('AmirmahdiAsadi.Amirmahdi');
+Route::get('MohamadRezaAkrami', [LandingController::class, 'MohamadReza'])->name('MohamadRezaAkrami.MohamadReza');
 Route::post('store', [LandingController::class, 'store'])->name('landing.store');
 Route::get('/file/show/{filename}', [LandingController::class, 'showFile'])->name('file.show');
 Route::get('/file/resume/{filename}', [LandingController::class, 'resumeFile'])->name('res.file.show');
