@@ -27,6 +27,7 @@ class LandingController extends Controller
         $user = User::where('name', 'محدثه')->first(['name', 'family', 'phone', 'role_id', 'profile','id']);
         $resume = Resume::where('user_id', $user->id)->get();
         $example = Example::where('user_id', $user->id)->paginate(3);
+        $example2 = Example::where('user_id', $user->id)->get();
         $customer = Customer::all();
         $favorites = Favorite::where('user_id', $user->id)->get();
         $skills = Skill::where('user_id', $user->id)->get();
@@ -49,13 +50,14 @@ class LandingController extends Controller
         SiteVisit::create([
             'ip_address' => $ipAddress,
         ]);
-        return view('landing', compact('user', 'resume', 'example', 'customer','totalDaysWorked','skills','jobHistories','favorites','name','title','url'));
+        return view('landing', compact('user', 'resume', 'example', 'customer','totalDaysWorked','skills','jobHistories','favorites','name','title','url','example2'));
     }
     public function Amirmahdi()
     {
         $user = User::where('name', 'امیرمهدی')->first(['name', 'family', 'phone', 'role_id', 'profile','id']);
         $resume = Resume::where('user_id', $user->id)->get();
         $example = Example::where('user_id', $user->id)->paginate(3);
+        $example2 = Example::where('user_id', $user->id)->get();
         $customer = Customer::all();
         $favorites = Favorite::where('user_id', $user->id)->get();
         $skills = Skill::where('user_id', $user->id)->get();
@@ -78,7 +80,7 @@ class LandingController extends Controller
         SiteVisit::create([
             'ip_address' => $ipAddress,
         ]);
-        return view('landing', compact('user', 'resume', 'example', 'customer','totalDaysWorked','skills','jobHistories','favorites','name','title','url'));
+        return view('landing', compact('user', 'resume', 'example', 'customer','totalDaysWorked','skills','jobHistories','favorites','name','title','url','example2'));
     }
     /**
      * Show the form for creating a new resource.

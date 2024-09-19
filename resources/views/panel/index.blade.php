@@ -493,6 +493,8 @@
                         </tfoot>
                     </table>
                 </div>
+                <div
+                    class="d-flex justify-content-center">{{ $sitevisits2->appends(request()->all())->links() }}</div>
             </div>
         </div>
         @can('UserVisit')

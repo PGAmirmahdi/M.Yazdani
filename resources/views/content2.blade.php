@@ -208,7 +208,7 @@
             <!-- آیتم تک دستاورد -->
             <div class="achievements__item d-flex flex-column grid-item animate-card-3">
                 <div class="achievements__card">
-                    <p class="achievements__number">+{{$example->count()}}</p>
+                    <p class="achievements__number">+{{$example2->count()}}</p>
                     <p class="achievements__descr">پروژه انجام شده</p>
                 </div>
             </div>
@@ -478,3 +478,12 @@
         <!-- Content Block - Tools List End -->
     </div>
 </section>
+<style>
+    .pagination-wrapper {
+        text-align: center;
+    }
+
+    .pagination-wrapper ul.pagination {
+        display: inline-flex;
+    }
+</style>

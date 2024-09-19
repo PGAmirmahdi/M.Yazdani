@@ -49,5 +49,6 @@
     <link rel="stylesheet" type="text/css" href="{{asset('assets/landing/css/main.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('assets/landing/css/font.css')}}">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
     <!-- Template Styles End -->
 </head>

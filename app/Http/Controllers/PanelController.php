@@ -396,8 +396,8 @@ class PanelController extends Controller
         // دریافت بازدیدهای سایت
         $sitevisits = SiteVisit::selectRaw('DATE(created_at) as date, COUNT(*) as count')
             ->groupBy('date')
-            ->orderBy('date', 'DESC')
-            ->paginate(15);
+            ->orderBy('date')
+            ->get();
 
         // آماده‌سازی داده‌ها برای نمودار
         $labels10 = $sitevisits->map(function ($visit) {
@@ -405,7 +405,7 @@ class PanelController extends Controller
         })->toArray();
         $datasets10 = $sitevisits->pluck('count')->toArray();
         $totalVisits10 = $datasets10 ? array_sum($datasets10) : 0;
-        $sitevisits2 = SiteVisit::all();
+        $sitevisits2 = SiteVisit::query()->orderByDesc('id')->paginate(15);
         return view('panel.index', [
             'labels' => $labels,
             'datasets' => $datasets,
