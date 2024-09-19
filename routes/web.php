@@ -87,7 +87,6 @@ Route::get('/file/example/{filename}', [LandingController::class, 'exampleFile']
 Route::get('/file/skill/{filename}', [LandingController::class, 'skillFile'])->name('ski.file.show');
 Route::get('/file/favorite/{filename}', [LandingController::class, 'favoriteFile'])->name('fav.file.show');
 Route::get('/file/user/{filename}', [LandingController::class, 'userFile'])->name('us.file.show');
-
 Route::get('/login', function () {
     if (Auth::check()) {
         return redirect()->to('/panel');

@@ -21,9 +21,9 @@
     <meta name="Classification" content="editor"/>
     <meta name="rating" content="General"/>
     <meta property="og:type" content="website">
-    <meta property="og:title" content="محدثه یزدانی">
+    <meta property="og:title" content="{{$name}}">
     <meta property="og:description"
-          content="صفحه رزومه و اطلاعات کاری محدثه یزدانی،تدوینگری با اشتیاق و پر از استعداد،آماده برای تدوین ویدیو های شما!">
+          content="{{$title}}">
     <meta property="og:site_name" content="{{$name}}">
     {{--    <meta property="og:image" content=”{{asset('assets/media/image/screenshots/Screenshot3.png')}}”/>--}}
     <meta property="og:locale" content="fa_IR">
