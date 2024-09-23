@@ -40,6 +40,7 @@
     <link rel="icon" href="{{asset('assets/landing/img/favicon/icon.png')}}" type="image/svg+xml">
     <link rel="apple-touch-icon" href="{{asset('assets/img/favicon/apple-touch-icon.png')}}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
     {{--    <link rel="manifest" href="img/favicon/manifest.webmanifest">--}}
     <!-- Template Favicon & Icons End -->
 

@@ -107,10 +107,10 @@
                                        data-image="{{ route('exa.file.show', ['filename' => basename($examplee->file)]) }}"
                                        class="gallery__link"
                                        itemprop="contentUrl" data-size="1400x1400">
-                                        <video width="fit-content" height="240" loading="lazy" autoplay muted playsinline loop>
+                                        <video loading="lazy" autoplay muted playsinline loop class="gallery__link" height="1080px" itemprop="thumbnail">
                                             <source
                                                 src="{{ route('exa.file.show', ['filename' => basename($examplee->file)]) }}"
-                                                type="video/{{ $fileExtension }}" media="(min-width: 720px)">
+                                                type="video/{{ $fileExtension }}" media="(min-width: 720px)" class="gallery__image">
                                             مرورگر شما از پخش ویدیو پشتیبانی نمی‌کند.
                                         </video>
                                     </a>

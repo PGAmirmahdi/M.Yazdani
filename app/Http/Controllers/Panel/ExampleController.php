@@ -13,7 +13,7 @@ class ExampleController extends Controller
 {
     public function index()
     {
-        $examples = Example::where('user_id', auth()->id())->paginate(3);
+        $examples = Example::where('user_id', auth()->id())->orderbyDesc('id')->paginate(3);
         return view('panel.example.index', compact('examples'));
     }
 
