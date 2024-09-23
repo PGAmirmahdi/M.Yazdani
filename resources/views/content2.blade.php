@@ -116,7 +116,7 @@
                                     <a href="{{ route('exa.file.show', ['filename' => basename($examplee->file)]) }}"
                                        data-image="{{ route('exa.file.show', ['filename' => basename($examplee->file)]) }}"
                                        class="gallery__link"
-                                       itemprop="contentUrl" data-size="1400x1400">
+                                       itemprop="contentUrl" data-size="1400x1400" data-type="image">
                                         <img
                                             src="{{ route('exa.file.show', ['filename' => basename($examplee->file)]) }}"
                                             class="gallery__image"
@@ -127,7 +127,7 @@
                                 <a href="https://mixdesign.club/themeforest/braxton/img/works/800_w03-thumb.webp"
                                    data-image="https://mixdesign.club/themeforest/braxton/img/works/800_w03-thumb.webp"
                                    class="gallery__link"
-                                   itemprop="contentUrl" data-size="1400x1400">
+                                   itemprop="contentUrl" data-size="1400x1400" data-type="image">
                                     <img
                                         src="https://mixdesign.club/themeforest/braxton/img/works/800_w03-thumb.webp"
                                         class="gallery__image"

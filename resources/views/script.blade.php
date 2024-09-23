@@ -66,7 +66,7 @@
             var itemType = el.getAttribute('data-type');
 
             if (itemType === 'video') {
-                // ویدیو با استفاده از Plyr
+                // اگر ویدیو باشد
                 items.push({
                     html: '<div class="plyr__video-embed" id="pswp-video">' +
                         '<video controls autoplay playsinline width="' + size[0] + '" height="' + size[1] + '">' +
@@ -78,9 +78,9 @@
                     h: parseInt(size[1], 10)
                 });
             } else if (itemType === 'image') {
-                // تصویر عادی
+                // اگر تصویر باشد
                 items.push({
-                    src: el.getAttribute('data-image-url'),
+                    src: el.getAttribute('data-image'),
                     w: parseInt(size[0], 10),
                     h: parseInt(size[1], 10)
                 });
@@ -94,12 +94,14 @@
 
         // PhotoSwipe باز کردن
         var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
+
+        // اعمال Plyr برای تمام ویدیوها پس از هر تغییر اسلاید
         gallery.listen('afterChange', function() {
-            var videoElement = document.querySelector('.plyr__video-embed video');
-            if (videoElement) {
-                const player = new Plyr(videoElement);
-            }
+            document.querySelectorAll('.plyr__video-embed video').forEach(function(videoElement) {
+                new Plyr(videoElement);
+            });
         });
+
         gallery.init();
     };
 
@@ -107,7 +109,13 @@
     document.querySelectorAll('.my-gallery a').forEach(function(el, index) {
         el.addEventListener('click', function(event) {
             event.preventDefault();
-            openPhotoSwipe(index);
+
+            // بررسی کنید آیا مورد ویدیو یا تصویر است و تنظیم درست نوع محتوا
+            var itemType = el.getAttribute('data-type');
+
+            if (itemType === 'video' || itemType === 'image') {
+                openPhotoSwipe(index);
+            }
         });
     });
 </script>
