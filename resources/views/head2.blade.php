@@ -50,5 +50,7 @@
     <link rel="stylesheet" type="text/css" href="{{asset('assets/landing/css/font.css')}}">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.2/plyr.css" />
     <!-- Template Styles End -->
 </head>

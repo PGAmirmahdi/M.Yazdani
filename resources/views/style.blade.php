@@ -1,7 +1,7 @@
 <style>
     .plyr__video-embed video {
         max-width: fit-content; /* ویدیوها به اندازه حداکثر عرض پدرشان تنظیم می‌شوند */
-        max-height: 100vh; /* ارتفاع به صورت خودکار تنظیم می‌شود */
+        height: 100vh; /* ارتفاع به صورت خودکار تنظیم می‌شود */
         margin:auto;
     }
     .pagination-wrapper {
@@ -18,7 +18,6 @@
     }
 
     .pagination li {
-
         margin: 0 5px;
     }
 
@@ -35,13 +34,15 @@
     .pagination li a:hover {
         background-color: #007bff;
         color:#fff;
+        transform:translateY(-10px);
     }
 
-    .pagination li.active a {
+    .pagination li.active span{
+        border-radius:4px;
+        padding: 8px 16px;
         background-color: #007bff;
         color: white;
         border-color: rgba(255, 255, 255, 0.18);
-        box-shadow:0px 2px 5px 0px #333;
     }
 
     .pagination li.disabled span {
@@ -49,5 +50,35 @@
         padding: 8px 16px;
         border: 1px solid #ddd;
         border-radius: 4px;
+    }
+    .inner__gallery {
+        display: flex;
+        flex-wrap: wrap;
+        margin: -10px; /* فاصله منفی برای حذف فاصله اضافی */
+    }
+
+    .gallery__item {
+        padding: 10px;
+        flex: 1 1 calc(25% - 20px); /* 4 ستون */
+        box-sizing: border-box;
+    }
+
+    .gallery__item video,
+    .gallery__item img {
+        border-radius: 20px;
+        width: 100%; /* ویدیوها و تصاویر به عرض ۱۰۰٪ */
+        height: 100%; /* حفظ نسبت ابعاد */
+    }
+
+    @media (max-width: 768px) {
+        .gallery__item {
+            flex: 1 1 calc(50% - 20px); /* 2 ستون در صفحه‌های کوچک‌تر */
+        }
+    }
+
+    @media (max-width: 480px) {
+        .gallery__item {
+            flex: 1 1 100%; /* 1 ستون در صفحه‌های خیلی کوچک */
+        }
     }
 </style>
