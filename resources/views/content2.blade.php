@@ -94,7 +94,7 @@
                 @if(isset($example) && is_iterable($example))
                     @foreach($example as $examplee)
                         <!-- آیتم تک گالری کارها شروع -->
-                        <figure class="col-12 col-md-6 gallery__item grid-item animate-card-2"
+                        <div class="col-12 col-md-6 gallery__item grid-item animate-card-2"
                                 itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
                             @if($examplee->file)
                                 @php
@@ -103,14 +103,12 @@
 
                                 @if(in_array($fileExtension, ['mp4', 'avi', 'mov']))
                                     {{-- بررسی فرمت‌های ویدیو --}}
-                                    <a href="{{ route('exa.file.show', ['filename' => basename($examplee->file)]) }}"
-                                       data-image="{{ route('exa.file.show', ['filename' => basename($examplee->file)]) }}"
-                                       class="gallery__link"
-                                       itemprop="contentUrl" data-size="1400x1400">
-                                        <video loading="lazy" autoplay muted playsinline loop class="gallery__link" height="1080px" itemprop="thumbnail">
-                                            <source
-                                                src="{{ route('exa.file.show', ['filename' => basename($examplee->file)]) }}"
-                                                type="video/{{ $fileExtension }}" media="(min-width: 720px)" class="gallery__image">
+                                    <a href="#"
+                                       data-size="1920x1080"
+                                       data-type="video"
+                                       data-video-url="{{ route('exa.file.show', ['filename' => basename($examplee->file)]) }}">
+                                        <video height="1080" muted playsinline loop>
+                                            <source src="{{ route('exa.file.show', ['filename' => basename($examplee->file)]) }}" type="video/{{ $fileExtension }}">
                                             مرورگر شما از پخش ویدیو پشتیبانی نمی‌کند.
                                         </video>
                                     </a>
@@ -150,7 +148,7 @@
                                 <p class="small">{{ $examplee->description}}
                                 </p>
                             </figcaption>
-                        </figure>
+                        </div>
                         <!-- آیتم تک گالری کارها پایان -->
                     @endforeach
                 @endif
@@ -275,7 +273,8 @@
                             <small class="top">شهر</small>
                             @foreach($resume as $resume4)
                                 <a class="text-link-bold" href="#"
-                                   target="_blank">{{$resume4->city}}</a> @endforeach
+                                   target="_blank">{{$resume4->city}}</a>
+                            @endforeach
                         </h6>
                     </div>
                 </div>

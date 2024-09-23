@@ -1,4 +1,9 @@
 <style>
+    .plyr__video-embed video {
+        max-width: fit-content; /* ویدیوها به اندازه حداکثر عرض پدرشان تنظیم می‌شوند */
+        max-height: 100vh; /* ارتفاع به صورت خودکار تنظیم می‌شود */
+        margin:auto;
+    }
     .pagination-wrapper {
         display: flex;
         justify-content: center;
@@ -13,6 +18,7 @@
     }
 
     .pagination li {
+
         margin: 0 5px;
     }
 

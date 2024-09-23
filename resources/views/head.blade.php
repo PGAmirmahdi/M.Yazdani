@@ -38,7 +38,7 @@
     <!-- Template Favicon & Icons Start -->
     <link rel="icon" href="{{asset('assets/landing/img/favicon/favicon.ico')}}" sizes="any">
     <link rel="icon" href="{{asset('assets/landing/img/favicon/icon.png')}}" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="{{asset('assets/img/favicon/apple-touch-icon.png')}}">
+    <link rel="apple-touch-icon" href="{{asset('assets/landing/img/favicon/apple-touch-icon.png')}}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
     {{--    <link rel="manifest" href="img/favicon/manifest.webmanifest">--}}
@@ -51,5 +51,6 @@
     <link rel="stylesheet" type="text/css" href="{{asset('assets/landing/css/font.css')}}">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.2/plyr.css" />
     <!-- Template Styles End -->
 </head>
