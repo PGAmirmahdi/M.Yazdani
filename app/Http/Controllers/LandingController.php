@@ -33,9 +33,6 @@ class LandingController extends Controller
         $skills = Skill::where('user_id', $user->id)->get();
         $jobHistories = JobHistory::where('user_id', $user->id)->get();
         $totalDaysWorked = 0;
-        $name='محدثه یزدانی';
-        $title="صفحه رزومه و اطلاعات کاری محدثه یزدانی،تدوینگری با اشتیاق و پر از استعداد،آماده برای تدوین ویدیو های شما!";
-        $url='https://moyazdani.ir';
         foreach ($jobHistories as $jobHistory) {
             $fromDate = Carbon::parse(Jalalian::fromFormat('Y/m/d', $jobHistory->from_date)->toCarbon())->startOfDay();
             $toDate = $jobHistory->to_date === 'تا اکنون' ? Carbon::now() : Carbon::parse(Jalalian::fromFormat('Y/m/d', $jobHistory->to_date)->toCarbon())->endOfDay();
@@ -50,7 +47,7 @@ class LandingController extends Controller
         SiteVisit::create([
             'ip_address' => $ipAddress,
         ]);
-        return view('landing', compact('user', 'resume', 'example', 'customer','totalDaysWorked','skills','jobHistories','favorites','name','title','url','example2'));
+        return view('landing', compact('user', 'resume', 'example', 'customer','totalDaysWorked','skills','jobHistories','favorites','example2'));
     }
     public function Amirmahdi()
     {
@@ -80,7 +77,7 @@ class LandingController extends Controller
         SiteVisit::create([
             'ip_address' => $ipAddress,
         ]);
-        return view('landing', compact('user', 'resume', 'example', 'customer','totalDaysWorked','skills','jobHistories','favorites','name','title','url','example2'));
+        return view('landing2', compact('user', 'resume', 'example', 'customer','totalDaysWorked','skills','jobHistories','favorites','name','title','url','example2'));
     }
     public function MohamadReza()
     {
@@ -110,7 +107,7 @@ class LandingController extends Controller
         SiteVisit::create([
             'ip_address' => $ipAddress,
         ]);
-        return view('landing', compact('user', 'resume', 'example', 'customer','totalDaysWorked','skills','jobHistories','favorites','name','title','url','example2'));
+        return view('landing2', compact('user', 'resume', 'example', 'customer','totalDaysWorked','skills','jobHistories','favorites','name','title','url','example2'));
     }
     /**
      * Show the form for creating a new resource.
