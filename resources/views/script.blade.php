@@ -59,6 +59,7 @@
     var openPhotoSwipe = function(index) {
         var pswpElement = document.querySelectorAll('.pswp')[0];
         var items = [];
+        var allVideos = []; // آرایه برای نگهداری همه ویدیوها
 
         // شناسایی ویدیوها و تصاویر
         document.querySelectorAll('.my-gallery a').forEach(function(el) {
@@ -69,7 +70,7 @@
                 // اگر ویدیو باشد
                 items.push({
                     html: '<div class="plyr__video-embed" id="pswp-video">' +
-                        '<video controls autoplay playsinline width="' + size[0] + '" height="' + size[1] + '">' +
+                        '<video controls playsinline width="' + size[0] + '" height="' + size[1] + '">' +
                         '<source src="' + el.getAttribute('data-video-url') + '" type="video/mp4">' +
                         'مرورگر شما از پخش ویدیو پشتیبانی نمی‌کند.' +
                         '</video>' +
@@ -77,6 +78,7 @@
                     w: parseInt(size[0], 10),
                     h: parseInt(size[1], 10)
                 });
+                allVideos.push(el); // اضافه کردن ویدیو به آرایه
             } else if (itemType === 'image') {
                 // اگر تصویر باشد
                 items.push({
@@ -95,11 +97,24 @@
         // PhotoSwipe باز کردن
         var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
 
-        // اعمال Plyr برای تمام ویدیوها پس از هر تغییر اسلاید
-        gallery.listen('afterChange', function() {
-            document.querySelectorAll('.plyr__video-embed video').forEach(function(videoElement) {
-                new Plyr(videoElement);
+        // متوقف کردن همه ویدیوهای در حال پخش
+        gallery.listen('beforeChange', function() {
+            allVideos.forEach(function(videoEl) {
+                var videoElement = videoEl.querySelector('video');
+                if (videoElement) {
+                    videoElement.pause(); // متوقف کردن ویدیو
+                    videoElement.currentTime = 0; // بازنشانی به ابتدای ویدیو
+                }
             });
+        });
+
+        // اعمال Plyr برای ویدیوها
+        gallery.listen('afterChange', function() {
+            var currentVideo = document.querySelector('.plyr__video-embed video');
+            if (currentVideo) {
+                new Plyr(currentVideo);
+                currentVideo.play(); // پخش ویدیو در حال حاضر
+            }
         });
 
         gallery.init();
@@ -110,15 +125,23 @@
         el.addEventListener('click', function(event) {
             event.preventDefault();
 
+            // متوقف کردن همه ویدیوها قبل از باز کردن گالری
+            document.querySelectorAll('.plyr__video-embed video').forEach(function(video) {
+                video.pause(); // متوقف کردن ویدیو
+                video.currentTime = 0; // بازنشانی به ابتدای ویدیو
+            });
+
             // بررسی کنید آیا مورد ویدیو یا تصویر است و تنظیم درست نوع محتوا
             var itemType = el.getAttribute('data-type');
 
+            // باز کردن PhotoSwipe برای ویدیو یا تصویر
             if (itemType === 'video' || itemType === 'image') {
                 openPhotoSwipe(index);
             }
         });
     });
 </script>
+
 <script src="{{asset('assets/landing/js/app.js')}}"></script>
 <script src="{{asset('assets/landing/js/gallery-init.js')}}"></script>
 <script src="https://cdn.dashjs.org/latest/dash.all.min.js"></script>
