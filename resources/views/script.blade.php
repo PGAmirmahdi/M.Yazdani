@@ -59,7 +59,8 @@
     var openPhotoSwipe = function(index) {
         var pswpElement = document.querySelectorAll('.pswp')[0];
         var items = [];
-        var allVideos = []; // آرایه برای نگهداری همه ویدیوها
+        var allVideos = [];
+        var currentPlyrInstance = null;
 
         // شناسایی ویدیوها و تصاویر
         document.querySelectorAll('.my-gallery a').forEach(function(el) {
@@ -94,52 +95,45 @@
             closeOnScroll: false
         };
 
-        // PhotoSwipe باز کردن
+        // باز کردن گالری
         var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
 
-        // متوقف کردن همه ویدیوهای در حال پخش
+        // متوقف کردن ویدیوهای قبلی
         gallery.listen('beforeChange', function() {
             allVideos.forEach(function(videoEl) {
                 var videoElement = videoEl.querySelector('video');
                 if (videoElement) {
-                    videoElement.pause(); // متوقف کردن ویدیو
-                    videoElement.currentTime = 0; // بازنشانی به ابتدای ویدیو
+                    videoElement.pause();
+                    videoElement.currentTime = 0;
                 }
             });
+
+            if (currentPlyrInstance) {
+                currentPlyrInstance.destroy();
+                currentPlyrInstance = null;
+            }
         });
 
-        // اعمال Plyr برای ویدیوها
+        // Plyr را برای ویدیوهای جدید اعمال کنید
         gallery.listen('afterChange', function() {
             var currentVideo = document.querySelector('.plyr__video-embed video');
             if (currentVideo) {
-                new Plyr(currentVideo);
-                currentVideo.play(); // پخش ویدیو در حال حاضر
+                currentPlyrInstance = new Plyr(currentVideo);
+                currentVideo.play();
             }
         });
 
         gallery.init();
     };
 
-    // رویداد کلیک برای باز کردن PhotoSwipe
+    // مدیریت رویداد کلیک برای باز کردن گالری
     document.querySelectorAll('.my-gallery a').forEach(function(el, index) {
         el.addEventListener('click', function(event) {
             event.preventDefault();
-
-            // متوقف کردن همه ویدیوها قبل از باز کردن گالری
-            document.querySelectorAll('.plyr__video-embed video').forEach(function(video) {
-                video.pause(); // متوقف کردن ویدیو
-                video.currentTime = 0; // بازنشانی به ابتدای ویدیو
-            });
-
-            // بررسی کنید آیا مورد ویدیو یا تصویر است و تنظیم درست نوع محتوا
-            var itemType = el.getAttribute('data-type');
-
-            // باز کردن PhotoSwipe برای ویدیو یا تصویر
-            if (itemType === 'video' || itemType === 'image') {
-                openPhotoSwipe(index);
-            }
+            openPhotoSwipe(index);
         });
     });
+
 </script>
 
 <script src="{{asset('assets/landing/js/app.js')}}"></script>

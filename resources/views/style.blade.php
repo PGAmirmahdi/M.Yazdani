@@ -1,8 +1,13 @@
 <style>
+    .plyr__video-embed a  {
+        max-width: 100%; /* ویدیوها به اندازه حداکثر عرض پدرشان تنظیم می‌شوند */
+        height: 100vh; /* ارتفاع به صورت خودکار تنظیم می‌شود */
+        margin:auto !important;
+    }
     .plyr__video-embed video {
         max-width: fit-content; /* ویدیوها به اندازه حداکثر عرض پدرشان تنظیم می‌شوند */
         height: 100vh; /* ارتفاع به صورت خودکار تنظیم می‌شود */
-        margin:auto;
+        margin:auto !important;
     }
     .pagination-wrapper {
         display: flex;
