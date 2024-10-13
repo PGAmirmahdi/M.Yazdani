@@ -81,10 +81,10 @@ class JobHistoryController extends Controller
     {
         try {
             // پیدا کردن رکورد مورد نظر
-            $job = JobHistory::findOrFail($id);
+            $jobHistory = JobHistory::findOrFail($id);
 
             // به‌روزرسانی اطلاعات
-            $job->update([
+            $jobHistory->update([
                 'company' => $request->company,
                 'department' => $request->department,
                 'from_date' => $request->from_date,
