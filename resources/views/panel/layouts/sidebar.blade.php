@@ -72,6 +72,13 @@
                     </a>
                 </li>
             @endcan
+            @can('folder-list')
+                <li class="{{ active_sidebar(['files','files/create','files/create-folder','files/folder/{folder}']) ? 'active' : '' }}" data-toggle="tooltip" title="مدیریت فایل">
+                    <a href="#navigationFileControl" title="مدیریت فایل">
+                        <i class="icon ti-folder"></i>
+                    </a>
+                </li>
+            @endcan
             @can('resume')
                 <li class="{{ active_sidebar(['resume','resume/{resume}/edit','resume/create','resume/index','favorites','favorites/create','favorites/{favorite}/edit','JobHistory','JobHistory/create','JobHistory/{JobHistory}/edit','example','example/create','example/{example}/edit','example/{example}/show','skill','skill/create','skill/{skill}/edit','skill/{skill}/show']) ? 'active' : '' }}"
                     data-toggle="tooltip" title="مشخصات">
@@ -375,7 +382,14 @@
                 </li>
             @endcan
         </ul>
-
+        <ul id="navigationFileControl" class="{{ active_sidebar(['files','files/create','files/create-folder','files/folder/{folder}']) ? 'navigation-active' : '' }}">
+            <li class="navigation-divider">مدیریت فایل</li>
+            @can('folder-list')
+                <li>
+                    <a class="{{ active_sidebar(['files','files/create','files/create-folder','files/folder/{folder}']) ? 'active' : '' }}" href="{{ route('files.index') }}">مدیریت فایل</a>
+                </li>
+            @endcan
+        </ul>
         <ul id="navigationInfo"
             class="{{ active_sidebar(['resume','resume/{resume}/edit','resume/create','resume/index','favorites','favorites/create','favorites/{favorite}/edit','JobHistory','JobHistory/create','JobHistory/{JobHistory}/edit','example','example/create','example/{example}/edit','example/{example}/show','skill','skill/create','skill/{skill}/edit','skill/{skill}/show']) ? 'navigation-active' : '' }}">
             <li class="navigation-divider">مشخصات</li>

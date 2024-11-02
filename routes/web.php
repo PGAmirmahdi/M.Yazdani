@@ -16,6 +16,7 @@ use App\Http\Controllers\Panel\ExampleController;
 use App\Http\Controllers\Panel\ExitDoorController;
 use App\Http\Controllers\Panel\FactorController;
 use App\Http\Controllers\Panel\FavoriteController;
+use App\Http\Controllers\Panel\FileController;
 use App\Http\Controllers\Panel\ForeignCustomerController;
 use App\Http\Controllers\Panel\GuaranteeController;
 use App\Http\Controllers\Panel\InputController;
@@ -87,6 +88,7 @@ Route::get('/file/example/{filename}', [LandingController::class, 'exampleFile']
 Route::get('/file/skill/{filename}', [LandingController::class, 'skillFile'])->name('ski.file.show');
 Route::get('/file/favorite/{filename}', [LandingController::class, 'favoriteFile'])->name('fav.file.show');
 Route::get('/file/user/{filename}', [LandingController::class, 'userFile'])->name('us.file.show');
+Route::get('/files/share/{id}', [FileController::class, 'getShareLink'])->name('files.share');
 Route::get('/login', function () {
     if (Auth::check()) {
         return redirect()->to('/panel');
@@ -134,6 +136,12 @@ Route::middleware('auth')->prefix('/panel')->group(function () {
     Route::post('send-sms', [PanelController::class, 'sendSMS'])->name('sendSMS');
 //    Route::post('najva_token', [PanelController::class, 'najva_token_store']);
 //    Route::post('saveFcmToken', [PanelController::class, 'saveFCMToken']);
+    // File Control
+    Route::resource('files', FileController::class)->middleware('auth');
+    Route::post('files/create-folder', [FileController::class, 'createFolder'])->name('files.createFolder');
+    Route::get('files/download/{id}', [FileController::class, 'download'])->name('files.download');
+    Route::get('files/folder/{folder}', [FileController::class, 'showFolder'])->name('files.showFolder');
+    Route::post('files/bulk-destroy', [FileController::class, 'bulkDestroy'])->name('files.bulkDestroy');
 
     // Users
     Route::resource('users', UserController::class)->except('show');
@@ -333,8 +341,6 @@ Route::middleware('auth')->prefix('/panel')->group(function () {
 // تعریف مسیر برای جستجو
     Route::match(['get', 'post'], 'search/calls', [CallController::class, 'search'])->name('calls.search');
 
-
-
     // Examples
     Route::resource('example', ExampleController::class);
     Route::get('example/file/{filename}', [ExampleController::class, 'showFile'])->name('example.file.show');
@@ -344,6 +350,11 @@ Route::middleware('auth')->prefix('/panel')->group(function () {
     Route::get('skill/file/{filename}', [SkillController::class, 'showFile'])->name('skill.file.show');
 
 });
+Route::get('examples/download/{id}', [ExampleController::class, 'download'])->name('example.download');
+Route::get('/files/share/{id}', [FileController::class, 'getShareLink'])->name('files.share');
+Route::get('examples/share/{id}', [ExampleController::class, 'ShareLink'])->name('example.share');
+
+
 Route::get('/user-visits', function() {
     $userVisits = UserVisit::selectRaw('DATE(created_at) as date, COUNT(*) as visits')
         ->groupBy('date')

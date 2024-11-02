@@ -100,16 +100,24 @@ class ExampleController extends Controller
         $example->delete();
         return back();
     }
-    public function showFile($filename)
+    public function download($id)
     {
-        // بررسی وجود فایل در دیسک public
-        if (Storage::disk('public')->exists('examples/' . $filename)) {
-            // دریافت فایل و ارسال آن به مرورگر
-            $filePath = 'examples/' . $filename;
-            return response()->file(Storage::disk('public')->path($filePath));
-        } else {
-            // فایل پیدا نشد
-            abort(Response::HTTP_NOT_FOUND, 'فایل پیدا نشد');
+        // پیدا کردن نمونه کار با آی‌دی مشخص شده
+        $example = Example::findOrFail($id);
+
+        // بررسی وجود فایل
+        if ($example->file) {
+            return Storage::disk('public')->download($example->file);
         }
+
+        return redirect()->back()->with('error', 'فایل پیدا نشد.');
+    }
+
+    public function ShareLink($id)
+    {
+        $example = Example::findOrFail($id);
+        $shareLink = route('example.download', $example->id); // لینک مستقیم دانلود فایل
+
+        return response()->json(['link' => $shareLink]);
     }
 }

@@ -59,8 +59,6 @@
     var openPhotoSwipe = function(index) {
         var pswpElement = document.querySelectorAll('.pswp')[0];
         var items = [];
-        var allVideos = [];
-        var currentPlyrInstance = null;
 
         // شناسایی ویدیوها و تصاویر
         document.querySelectorAll('.my-gallery a').forEach(function(el) {
@@ -70,16 +68,13 @@
             if (itemType === 'video') {
                 // اگر ویدیو باشد
                 items.push({
-                    html: '<div class="plyr__video-embed" id="pswp-video">' +
-                        '<video controls playsinline width="' + size[0] + '" height="' + size[1] + '">' +
+                    html: '<video controls playsinline width="' + size[0] + '" height="' + size[1] + '">' +
                         '<source src="' + el.getAttribute('data-video-url') + '" type="video/mp4">' +
                         'مرورگر شما از پخش ویدیو پشتیبانی نمی‌کند.' +
-                        '</video>' +
-                        '</div>',
+                        '</video>',
                     w: parseInt(size[0], 10),
                     h: parseInt(size[1], 10)
                 });
-                allVideos.push(el); // اضافه کردن ویدیو به آرایه
             } else if (itemType === 'image') {
                 // اگر تصویر باشد
                 items.push({
@@ -100,40 +95,19 @@
 
         // متوقف کردن ویدیوهای قبلی
         gallery.listen('beforeChange', function() {
-            allVideos.forEach(function(videoEl) {
-                var videoElement = videoEl.querySelector('video');
-                if (videoElement) {
-                    videoElement.pause();
-                    videoElement.currentTime = 0;
-                }
-            });
-
-            if (currentPlyrInstance) {
-                currentPlyrInstance.destroy();
-                currentPlyrInstance = null;
-            }
-        });
-
-        // Plyr را برای ویدیوهای جدید اعمال کنید
-        gallery.listen('afterChange', function() {
-            var currentVideo = document.querySelector('.plyr__video-embed video');
-            if (currentVideo) {
-                currentPlyrInstance = new Plyr(currentVideo);
-                currentVideo.play();
-            }
+            // ویدیوهای قبل را متوقف کنید
         });
 
         gallery.init();
     };
 
-    // مدیریت رویداد کلیک برای باز کردن گالری
-    document.querySelectorAll('.my-gallery a').forEach(function(el, index) {
+    // مدیریت رویداد کلیک برای باز کردن گالری فقط برای ویدیوها
+    document.querySelectorAll('.my-gallery a[data-type="video"]').forEach(function(el, index) {
         el.addEventListener('click', function(event) {
             event.preventDefault();
             openPhotoSwipe(index);
         });
     });
-
 </script>
 
 <script src="{{asset('assets/landing/js/app.js')}}"></script>

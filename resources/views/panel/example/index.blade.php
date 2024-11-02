@@ -25,6 +25,7 @@
                         <th>توضیحات</th>
                         <th>ویژگی‌ها</th>
                         <th>زمان آپلود</th>
+                        <th>به اشتراک‌ گذاری</th>
                         <th>مشاهده</th>
                         @can('edit-example')
                             <th>ویرایش</th>
@@ -45,18 +46,19 @@
                                             $fileExtension = pathinfo($example->file, PATHINFO_EXTENSION);
                                         @endphp
 
-                                        @if(in_array($fileExtension, ['mp4', 'avi', 'mov'])) {{-- بررسی فرمت‌های ویدیو --}}
-                                        <video width="320" height="240" controls>
-                                            <source src="{{ route('example.file.show', ['filename' => basename($example->file)]) }}" type="video/{{ $fileExtension }}">
-                                            مرورگر شما از پخش ویدیو پشتیبانی نمی‌کند.
-                                        </video>
+                                        @if(in_array($fileExtension, ['mp4', 'avi', 'mov']))
+                                            <video width="320" height="240" controls>
+                                                <source src="{{ route('example.file.show', ['filename' => basename($example->file)]) }}" type="video/{{ $fileExtension }}">
+                                                مرورگر شما از پخش ویدیو پشتیبانی نمی‌کند.
+                                            </video>
                                         @else
-                                            <a href="{{ route('example.file.show', ['filename' => basename($example->file)]) }}"><img src="{{ route('example.file.show', ['filename' => basename($example->file)]) }}" alt="فایل" class="btn btn-info btn-sm" style="max-width: 100px; max-height: 100px;"></a>
+                                            <a href="{{ route('example.file.show', ['filename' => basename($example->file)]) }}">
+                                                <img loading="lazy" src="{{ route('example.file.show', ['filename' => basename($example->file)]) }}" alt="فایل" class="btn btn-info btn-sm" style="max-width: 100px; max-height: 100px;">
+                                            </a>
                                         @endif
                                     @else
                                         <span class="text-muted">فایل ندارد</span>
                                     @endif
-
                                 </td>
                                 <td>{{ $example->title }}</td>
                                 <td>{{ Str::limit($example->description, 60) }}</td>
@@ -65,22 +67,25 @@
                                         $properties = json_decode($example->properties, true);
                                     @endphp
                                     @foreach($properties as $property)
-                                        <div>
-                                            + {{ $property }} <br>
-                                        </div>
+                                        <div>+ {{ $property }} <br></div>
                                     @endforeach
                                 </td>
                                 <td>{{ verta($example->created_at)->format('H:i - Y/m/d') }}</td>
                                 <td>
-                                    <a class="btn btn-info btn-floating"
-                                       href="{{ route('example.show', $example->id) }}">
+                                    <button class="btn btn-primary btn-floating share-button"
+                                            data-link="{{ route('example.download', $example->id) }}"
+                                            data-toggle="modal" data-target="#shareModal">
+                                        <i class="ti-link"></i>
+                                    </button>
+                                </td>
+                                <td>
+                                    <a class="btn btn-info btn-floating" href="{{ route('example.show', $example->id) }}">
                                         <i class="fa fa-eye"></i>
                                     </a>
                                 </td>
                                 @can('edit-example')
                                     <td>
-                                        <a class="btn btn-warning btn-floating"
-                                           href="{{ route('example.edit', $example->id) }}">
+                                        <a class="btn btn-warning btn-floating" href="{{ route('example.edit', $example->id) }}">
                                             <i class="fa fa-edit"></i>
                                         </a>
                                     </td>
@@ -98,18 +103,48 @@
                         @endforeach
                     @endif
                     </tbody>
-                    <tfoot>
-                    <tr>
-                        <!-- اگر نیاز به فوتر خاصی بود، اینجا اضافه کنید -->
-                    </tr>
-                    </tfoot>
                 </table>
             </div>
             <div class="d-flex justify-content-center">{{ $examples->appends(request()->all())->links() }}</div>
         </div>
     </div>
+
+    <!-- مدال اشتراک‌گذاری -->
+    <div class="modal fade" id="shareModal" tabindex="-1" role="dialog" aria-labelledby="shareModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="shareModalLabel">لینک اشتراک‌گذاری فایل</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="بستن">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="text" id="shareLink" class="form-control" readonly>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">بستن</button>
+                    <button type="button" class="btn btn-primary" id="copyLinkButton">کپی لینک</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 @endsection
 
 @section('scripts')
     <script src="{{ asset('assets/js/lazysizes.min.js') }}"></script>
+    <script>
+        $(document).on('click', '.share-button', function () {
+            var downloadLink = $(this).data('link');
+            $('#shareLink').val(downloadLink);
+        });
+
+        $('#copyLinkButton').on('click', function () {
+            var shareLink = document.getElementById('shareLink');
+            shareLink.select();
+            document.execCommand("copy");
+            alert("لینک کپی شد: " + shareLink.value);
+        });
+    </script>
 @endsection

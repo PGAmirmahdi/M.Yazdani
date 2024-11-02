@@ -35,7 +35,7 @@
 
 
 <!-- Page Content Start -->
-<div id="content" class="content no-gutters">
+<div id="content" class="content no-gutters" style="width:100%">
     <div class="content__wrapper">
 
         @include('content2')
