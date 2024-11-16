@@ -19,28 +19,8 @@ class WhatsappController extends Controller
 
     public function create()
     {
-        $defaultMessage = 'با عرض سلام خدمت شما
-خوشحالیم که شما را در جمع مشتریان ارزشمند خود داریم. برای اطلاع از جدیدترین اخبار و پیشنهادات ویژه، ما را در صفحات اجتماعی دنبال کنید:
-
-دانلود کاتالوگ محصولات:
-https://artintoner.com/folder/Catalog-v1.3.10.pdf
-
-فروشگاه اینترنتی:
-https://artintoner.com
-
-اپلیکیشن:
-https://mpsystem.ir/Discover
-
-اینستاگرام:
-www.instagram.com/artintoner.ir
-
-شماره تماس
-02165425052-54
-09906424827
-09014667657
-09027386996
-با سپاس،
-';
+        $defaultMessage = `سلام خدمت شما کاربر عزیز!
+            این پیام از سمت سرور moyazdani.ir ارسال شده است.`;
         $customers = Customer::all();
         return view('panel.Whatsapp.create', compact('customers', 'defaultMessage'));
     }
@@ -145,7 +125,8 @@ www.instagram.com/artintoner.ir
 
     public function createGroup()
     {
-        $defaultMessage = 'صبح همه عزیزان به خیر';
+        $defaultMessage = `سلام خدمت شما کاربر عزیز!
+            این پیام از سمت سرور moyazdani.ir ارسال شده است.`;
         return view('panel.Whatsapp.group',compact('defaultMessage'));
     }
     public function sendToGroup(Request $request)

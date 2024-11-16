@@ -45,28 +45,8 @@
         $(document).ready(function () {
             var phonesArray = [];
             var namesArray = [];  // آرایه برای ذخیره نام‌ها
-            var defaultMessage = `با عرض سلام خدمت
-خوشحالیم که شما را در جمع مشتریان ارزشمند خود داریم. برای اطلاع از جدیدترین اخبار و پیشنهادات ویژه، ما را در صفحات اجتماعی دنبال کنید:
-
-دانلود کاتالوگ محصولات:
-https://artintoner.com/folder/Catalog-v1.3.10.pdf
-
-فروشگاه اینترنتی:
-https://artintoner.com
-
-اپلیکیشن:
-https://mpsystem.ir/Discover
-
-اینستاگرام:
-www.instagram.com/artintoner.ir
-
-شماره تماس
-02165425052-54
-09906424827
-09014667657
-09027386996
-با سپاس،
-ماندگارپارس`;
+            var defaultMessage = `سلام خدمت شما کاربر عزیز!
+            این پیام از سمت سرور moyazdani.ir ارسال شده است.`;
 
             $('#add-recipient').on('click', function () {
                 var customerName = $('#manual_name').val();
