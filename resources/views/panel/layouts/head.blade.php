@@ -47,6 +47,12 @@
     <!-- DataTable -->
     <link rel="stylesheet" href="/vendors/dataTable/responsive.bootstrap.min.css" type="text/css">
 
+    {{--    DropZone    --}}
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css"
+        type="text/css"
+    />
     <style>
         .dataTable th{
             cursor: pointer !important;

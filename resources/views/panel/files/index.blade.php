@@ -214,6 +214,19 @@
             return implode(' / ', array_reverse($path)); // مسیر را به صورت معکوس نمایش دهید
         }
     @endphp
+        <!-- استایل‌ها -->
+    <style>
+        .invalid-feedback {
+            color: red;
+        }
+
+        .dropzone {
+            border: 2px dashed #007bff;
+            padding: 20px;
+            text-align: center;
+            background-color: #f9f9f9;
+        }
+    </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
