@@ -62,21 +62,19 @@
                 <div class="modal" id="uploadModal" tabindex="-1" role="dialog">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">در حال بارگذاری...</h5>
-                            </div>
                             <div class="modal-body text-center">
+                                <p class="loading-text">در حال بارگذاری</p>
                                 <div class="progress-circle">
                                     <svg viewBox="0 0 36 36" class="circular-chart">
                                         <path class="circle-bg"
                                               d="M18 2.0845
-                              a 15.9155 15.9155 0 0 1 0 31.831
-                              a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                  a 15.9155 15.9155 0 0 1 0 31.831
+                  a 15.9155 15.9155 0 0 1 0 -31.831"/>
                                         <path class="circle"
                                               stroke-dasharray="0, 100"
                                               d="M18 2.0845
-                              a 15.9155 15.9155 0 0 1 0 31.831
-                              a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                  a 15.9155 15.9155 0 0 1 0 31.831
+                  a 15.9155 15.9155 0 0 1 0 -31.831"/>
                                         <text x="18" y="20.35" class="percentage">0%</text>
                                     </svg>
                                 </div>
@@ -90,6 +88,9 @@
 <style>
     .modal-content {
         width: 300px;
+        background-color: rgba(255, 255, 255, 0.72);
+        backdrop-filter:blur(6.9px);
+        box-shadow:0px 5px 5px 2px gainsboro;
     }
     .textarea {
         width: 100%;
@@ -106,39 +107,46 @@
         top: 0;
         width: 100%;
         height: 100%;
-        overflow: hidden;
         background-color: rgba(0, 0, 0, 0.5);
-        outline: 0;
-        flex-direction: column;
         justify-content: center;
         align-items: center;
+        backdrop-filter:blur(6px);
     }
     .progress-circle {
         width: 100px;
         margin: auto;
-    }
-    .circular-chart {
-        display: block;
-        max-width: 100%;
-        max-height: 100%;
-    }
+    }.circular-chart {
+         display: block;
+         max-width: 100%;
+         max-height: 100%;
+     }
+
     .circle-bg {
         fill: none;
-        stroke: #eee;
+        stroke: rgba(255, 255, 255, 0.72);
         stroke-width: 3.8;
     }
+
     .circle {
         fill: none;
         stroke-width: 2.8;
         stroke-linecap: round;
-        stroke: #4caf50;
+        stroke: #2d96ff;
         transition: stroke-dasharray 0.3s;
     }
+
     .percentage {
         fill: #666;
         font-family: sans-serif;
         font-size: 0.5em;
         text-anchor: middle;
+    }
+
+    .loading-text {
+        font-size: 16px;
+        font-weight: bold;
+        color: #555;
+        animation: pulse 1.5s infinite;
     }
     .table-responsive {
         margin-top: 20px;
@@ -172,7 +180,14 @@
     #add_row {
         margin-top: 10px;
     }
-
+    @keyframes pulse {
+        0%, 100% {
+            opacity: 1;
+        }
+        50% {
+            opacity: 0.5;
+        }
+    }
 
 </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

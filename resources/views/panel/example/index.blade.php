@@ -47,13 +47,25 @@
                                         @endphp
 
                                         @if(in_array($fileExtension, ['mp4', 'avi', 'mov']))
-                                            <video width="320" height="240" controls>
-                                                <source src="{{ route('example.file.show', ['filename' => basename($example->file)]) }}" type="video/{{ $fileExtension }}">
-                                                مرورگر شما از پخش ویدیو پشتیبانی نمی‌کند.
-                                            </video>
+                                            {{-- بررسی فرمت‌های ویدیو --}}
+                                            <a href="#"
+                                               data-size="1920x1080"
+                                               data-type="video"
+                                               data-video-url="{{ route('exa.file.show', ['filename' => basename($example->file)]) }}">
+                                                <video height="240px" muted playsinline loop width="240px" autoplay style="border-radius:15px;">
+                                                    <source src="{{ route('exa.file.show', ['filename' => basename($example->file)]) }}" type="video/{{ $fileExtension }}" style="border-radius:15px;">
+                                                    مرورگر شما از پخش ویدیو پشتیبانی نمی‌کند.
+                                                </video>
+                                            </a>
                                         @else
-                                            <a href="{{ route('example.file.show', ['filename' => basename($example->file)]) }}">
-                                                <img loading="lazy" src="{{ route('example.file.show', ['filename' => basename($example->file)]) }}" alt="فایل" class="btn btn-info btn-sm" style="max-width: 100px; max-height: 100px;">
+                                            <a href="{{ route('exa.file.show', ['filename' => basename($example->file)]) }}"
+                                               data-image="{{ route('exa.file.show', ['filename' => basename($example->file)]) }}"
+                                               class="gallery__link"
+                                               itemprop="contentUrl" data-size="1400x1400" data-type="image">
+                                                <img
+                                                    src="{{ route('exa.file.show', ['filename' => basename($example->file)]) }}"
+                                                    class="gallery__image"
+                                                    itemprop="thumbnail" alt="توضیحات تصویر">
                                             </a>
                                         @endif
                                     @else
@@ -114,7 +126,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="shareModalLabel">لینک اشتراک‌گذاری فایل</h5>
+                    <h5 class="modal-title" id="shareModalLabel">لینک اشتراک‌ گذاری فایل</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="بستن">
                         <span aria-hidden="true">&times;</span>
                     </button>

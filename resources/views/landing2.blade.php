@@ -157,7 +157,7 @@
     <!-- Page Content End -->
 
     <!-- Root element of PhotoSwipe. Must have class pswp. -->
-    <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="pswp w-100" tabindex="-1" role="dialog" aria-hidden="true">
 
         <!-- Background of PhotoSwipe.
         It's a separate element, as animating opacity is faster than rgba(). -->

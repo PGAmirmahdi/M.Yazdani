@@ -2,10 +2,10 @@
 <html lang="fa" dir="rtl">
 @include('head')
 @include('style')
-<body class="no-gutters">
+<body class="no-gutters w-100">
 
 <!-- Loader Start -->
-<div id="loader" class="loader">
+<div id="loader" class="loader w-100">
     <div id="loaderContent" class="loader__content">
         <div class="loader__shadow"></div>
         <div class="loader__box"></div>
