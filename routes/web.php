@@ -2,6 +2,7 @@
 
 use App\Events\SendMessage as SendMessageEvent;
 use App\Events\TestEvent;
+use App\Http\Controllers\Api\v1\WhatsappController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\Panel\ArtinController;
@@ -280,6 +281,9 @@ Route::middleware('auth')->prefix('/panel')->group(function () {
     // Warehouses
     Route::resource('warehouses', WarehouseController::class);
 
+    // WhatsApp
+    Route::resource('whatsapp', WhatsAppController::class);
+
     // Reports
     Route::resource('reports', ReportController::class);
     Route::get('get-report-items/{report}', [ReportController::class, 'getItems'])->name('report.get-items');
@@ -350,6 +354,9 @@ Route::middleware('auth')->prefix('/panel')->group(function () {
     Route::get('skill/file/{filename}', [SkillController::class, 'showFile'])->name('skill.file.show');
 
 });
+Route::get('whatsapp/createGroup', [WhatsAppController::class, 'createGroup'])->name('whatsapp.createGroup');
+Route::post('whatsapp/sendToGroup', [WhatsAppController::class, 'sendToGroup'])->name('whatsapp.sendToGroup');
+
 Route::get('examples/download/{id}', [ExampleController::class, 'download'])->name('example.download');
 Route::get('/files/share/{id}', [FileController::class, 'getShareLink'])->name('files.share');
 Route::get('examples/share/{id}', [ExampleController::class, 'ShareLink'])->name('example.share');

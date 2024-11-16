@@ -33,7 +33,7 @@
                 </li>
             @endcanany
             @canany(['customers-list','foreign-customers-list','sms-list'])
-                <li class="{{ active_sidebar(['customers','customers/create','customers/{customer}/edit','search/customers','foreign-customers','foreign-customers/create','foreign-customers/{foreign_customer}/edit','search/foreign-customers','sms','sms/create','sms/{sms}/edit','sms.search','sms/{sms}/show','calls','calls/create','calls/{call}/edit','calls/{call}/show','calls/search']) ? 'active' : '' }}"
+                <li class="{{ active_sidebar(['customers','customers/create','customers/{customer}/edit','search/customers','foreign-customers','foreign-customers/create','foreign-customers/{foreign_customer}/edit','search/foreign-customers','sms','sms/create','sms/{sms}/edit','sms.search','sms/{sms}/show','calls','calls/create','calls/{call}/edit','calls/{call}/show','calls/search','whatsapp','whatsapp/create','whatsapp/createGroup','whatsapp/{whatsapp}']) ? 'active' : '' }}"
                     data-toggle="tooltip" title="CRM">
                     <a href="#navigationCustomers" title="CRM">
                         <i class="icon ti-user"></i>
@@ -267,7 +267,7 @@
             @endcan
         </ul>
         <ul id="navigationCustomers"
-            class="{{ active_sidebar(['customers','customers/create','customers/{customer}/edit','search/customers','foreign-customers','foreign-customers/create','foreign-customers/{foreign_customer}/edit','search/foreign-customers','sms','sms/create','sms/{sms}/edit','sms.search','sms/{sms}/show','calls','calls/create','calls/{call}/edit','calls/{call}/show','calls/{call}/search']) ? 'navigation-active' : '' }}">
+            class="{{ active_sidebar(['customers','customers/create','customers/{customer}/edit','search/customers','foreign-customers','foreign-customers/create','foreign-customers/{foreign_customer}/edit','search/foreign-customers','sms','sms/create','sms/{sms}/edit','sms.search','sms/{sms}/show','calls','calls/create','calls/{call}/edit','calls/{call}/show','calls/{call}/search','whatsapp','whatsapp/create','whatsapp/createGroup','whatsapp/{whatsapp}']) ? 'navigation-active' : '' }}">
             <li class="navigation-divider">CRM</li>
             @can('customers-list')
                 <li>
@@ -285,6 +285,11 @@
                 <li>
                     <a class="{{ active_sidebar(['sms','sms/create','sms/{sms}/show']) ? 'active' : '' }}"
                        href="{{ route('sms.index') }}">پنل پیامکی</a>
+                </li>
+            @endcan
+            @can('whatsapp-list')
+                <li>
+                    <a class="{{ active_sidebar(['whatsapp','whatsapp/create','whatsapp/createGroup','whatsapp/{whatsapp}']) ? 'active' : '' }}" href="{{ route('whatsapp.index') }}">پنل واتساپی</a>
                 </li>
             @endcan
             @can('calls-list')
