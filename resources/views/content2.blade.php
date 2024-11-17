@@ -88,13 +88,13 @@
         <!-- بلوک محتوا - عنوان H2 پایان -->
 
         <!-- بلوک محتوا - گالری اعمال شروع -->
-        <div class="content__block grid-block">
-            <div class="container-fluid px-0 inner__gallery">
-                <div class="row gx-0 my-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+        <div class="content__block grid-block p-0 m-0">
+            <div class="container-fluid px-0 inner__gallery p-0 m-0">
+                <div class="row gx-0 my-gallery p-0 m-0" itemscope itemtype="http://schema.org/ImageGallery">
                     @if(isset($example) && is_iterable($example))
                         @foreach($example as $examplee)
                             <!-- آیتم تک گالری کارها شروع -->
-                            <div class="col-12 col-md-6 grid-item animate-card-2"
+                            <div class="col-12 col-md-6 grid-item animate-card-2 p-0 m-0"
                                     itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
                                 @if($examplee->file)
                                     @php
@@ -106,7 +106,7 @@
                                         <a href="#"
                                            data-size="1920x1080"
                                            data-type="video"
-                                           data-video-url="{{ route('exa.file.show', ['filename' => basename($examplee->file)]) }}">
+                                           data-video-url="{{ route('exa.file.show', ['filename' => basename($examplee->file)]) }}" class="p-0 m-0">
                                             <video height="720px" muted playsinline loop width="480px" autoplay>
                                                 <source src="{{ route('exa.file.show', ['filename' => basename($examplee->file)]) }}" type="video/{{ $fileExtension }}">
                                                 مرورگر شما از پخش ویدیو پشتیبانی نمی‌کند.
@@ -115,7 +115,7 @@
                                     @else
                                         <a href="{{ route('exa.file.show', ['filename' => basename($examplee->file)]) }}"
                                            data-image="{{ route('exa.file.show', ['filename' => basename($examplee->file)]) }}"
-                                           class="gallery__link"
+                                           class="gallery__link p-0 m-0"
                                            itemprop="contentUrl" data-size="1400x1400" data-type="image">
                                             <img
                                                 src="{{ route('exa.file.show', ['filename' => basename($examplee->file)]) }}"
@@ -143,7 +143,6 @@
                                         @foreach($properties as $property)
                                             <span class="rounded-tag opposite">{{$property}}</span>
                                         @endforeach
-
                                     </div>
                                     <p class="small">{{ $examplee->description}}
                                     </p>
@@ -154,7 +153,7 @@
                     @endif
                 </div>
                 <!-- صفحه‌بندی -->
-                <div class="pagination-wrapper d-flex justify-content-center mt-4">
+                <div class="pagination-wrapper d-flex justify-content-center mt-4 w-100">
                     {{ $example->links() }}
                 </div>
             </div>
@@ -480,10 +479,14 @@
     <style>
         .pagination-wrapper {
             text-align: center;
-        }
-
-        .pagination-wrapper ul.pagination {
-            display: inline-flex;
+            width:100%;
+            display:flex;
+            flex-direction:row;
+            justify-content:center;
+            gap:10px;
+            align-items:center;
+            margin:0px;
+            padding:0px;
         }
         video {
             width: 100%;
@@ -492,8 +495,16 @@
 
         @media (max-width: 768px) { /* اندازه‌های موبایل */
             video {
-                max-width: fit-content; /* حداکثر عرض ویدیو */
-                height: fit-content; /* ارتفاع به صورت خودکار تنظیم می‌شود */
+                max-width: 100%; /* حداکثر عرض ویدیو */
+                height: 100%; /* ارتفاع به صورت خودکار تنظیم می‌شود */
+            }
+            .pagination-wrapper {
+                flex-wrap:wrap;
+            }
+            .page-item , .page-link{
+                width:30px !important;
+                height:25px !important;
+                font-size:10px !important;
             }
         }
     </style>

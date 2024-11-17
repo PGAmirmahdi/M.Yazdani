@@ -52,7 +52,7 @@
                                                data-size="1920x1080"
                                                data-type="video"
                                                data-video-url="{{ route('exa.file.show', ['filename' => basename($example->file)]) }}">
-                                                <video height="240px" muted playsinline loop width="240px" autoplay style="border-radius:15px;">
+                                                <video height="240px" muted playsinline loop width="240px" autoplay style="border-radius:15px;" controls>
                                                     <source src="{{ route('exa.file.show', ['filename' => basename($example->file)]) }}" type="video/{{ $fileExtension }}" style="border-radius:15px;">
                                                     مرورگر شما از پخش ویدیو پشتیبانی نمی‌کند.
                                                 </video>
