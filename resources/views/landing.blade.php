@@ -2,7 +2,7 @@
 <html lang="fa" dir="rtl">
 @include('head')
 @include('style')
-<body class="no-gutters w-100">
+<body class="no-gutters w-100" onload="load()">
 
 <!-- Loader Start -->
 <div id="loader" class="loader w-100">

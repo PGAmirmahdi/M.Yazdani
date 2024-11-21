@@ -109,7 +109,6 @@
         });
     });
 </script>
-
 <script src="{{asset('assets/landing/js/app.js')}}"></script>
 <script src="{{asset('assets/landing/js/gallery-init.js')}}"></script>
 <script src="https://cdn.dashjs.org/latest/dash.all.min.js"></script>

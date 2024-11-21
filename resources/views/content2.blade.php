@@ -88,13 +88,13 @@
         <!-- بلوک محتوا - عنوان H2 پایان -->
 
         <!-- بلوک محتوا - گالری اعمال شروع -->
-        <div class="content__block grid-block p-0 m-0">
-            <div class="container-fluid px-0 inner__gallery p-0 m-0">
-                <div class="row gx-0 my-gallery p-0 m-0" itemscope itemtype="http://schema.org/ImageGallery">
+        <div class="content__block grid-block p-0 m-0 no-gutters">
+            <div class="container-fluid px-0 inner__gallery p-0 m-0 no-gutters d-flex row justify-content-center align-items-center">
+                <div class="row gx-0 my-gallery p-0 m-0 no-gutters d-flex row justify-content-center align-items-center" itemscope itemtype="http://schema.org/ImageGallery">
                     @if(isset($example) && is_iterable($example))
                         @foreach($example as $examplee)
                             <!-- آیتم تک گالری کارها شروع -->
-                            <div class="col-12 col-md-6 grid-item animate-card-2 p-0 m-0"
+                            <div class="col-12 col-md-6 grid-item animate-card-2 p-0 m-0 no-gutters"
                                     itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
                                 @if($examplee->file)
                                     @php
@@ -492,11 +492,21 @@
             width: 100%;
             max-width: 100%;
         }
-
         @media (max-width: 768px) { /* اندازه‌های موبایل */
             video {
+                margin: 0px;
+                padding: 0px;
                 max-width: 100%; /* حداکثر عرض ویدیو */
                 height: 100%; /* ارتفاع به صورت خودکار تنظیم می‌شود */
+            }
+            .pagination{
+                flex-wrap: wrap;
+                width: 100% !important;
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                gap: 5px;
             }
             .pagination-wrapper {
                 flex-wrap:wrap;
